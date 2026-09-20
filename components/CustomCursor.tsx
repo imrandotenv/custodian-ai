@@ -118,7 +118,7 @@ export default function CustomCursor() {
               ? "#C25934"
               : "rgba(194, 89, 52, 0.25)"
             : "#C25934",
-          borderColor: isHovered ? "#C25934" : "transparent",
+          borderColor: isHovered ? "#C25934" : "rgba(0, 0, 0, 0)",
         }}
         transition={{
           type: "spring",
