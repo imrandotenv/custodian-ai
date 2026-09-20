@@ -23,9 +23,11 @@ model User {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
-  artworks     Artwork[]
-  pledges      Pledge[]
-  chatMessages ChatMessage[]
+  artworks       Artwork[]
+  pledges        Pledge[]
+  chatMessages   ChatMessage[]
+  privacyShutter PrivacyShutter?
+  touristScore   TouristScore?
 
   @@map("users")
 }
@@ -96,4 +98,25 @@ model ChatMessage {
   createdAt DateTime @default(now())
 
   @@map("chat_messages")
+}
+
+model PrivacyShutter {
+  id          String   @id @default(cuid())
+  custodianId String   @unique
+  custodian   User     @relation(fields: [custodianId], references: [id], onDelete: Cascade)
+  isClosed    Boolean  @default(false)
+  updatedAt   DateTime @updatedAt
+
+  @@map("privacy_shutters")
+}
+
+model TouristScore {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  score         Int      @default(100)
+  totalPledges  Int      @default(0)
+  updatedAt     DateTime @updatedAt
+
+  @@map("tourist_scores")
 }
