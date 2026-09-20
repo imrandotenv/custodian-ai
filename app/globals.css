@@ -1,26 +1,144 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
+@config "../tailwind.config.ts";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  /* Override Default Browser Text Selection (No default blue highlight) */
+  ::selection {
+    background-color: #C25934 !important;
+    color: #F9F6F0 !important;
+  }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  ::-moz-selection {
+    background-color: #C25934 !important;
+    color: #F9F6F0 !important;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Custom Ultra-Thin Scrollbar (Terracotta #C25934 thumb & Warm Sand #F9F6F0 track) */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F9F6F0;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #C25934;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #A84724;
+  }
+
+  /* Firefox Scrollbar Styling */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #C25934 #F9F6F0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Removal of Default Blue Focus Rings & Outlines */
+  input,
+  textarea,
+  select,
+  button,
+  [tabindex] {
+    outline: none;
+  }
+
+  input:focus,
+  input:focus-visible,
+  textarea:focus,
+  textarea:focus-visible,
+  select:focus,
+  select:focus-visible {
+    outline: none !important;
+    border-color: #C25934 !important;
+    box-shadow: 0 0 0 1px #C25934 !important;
+  }
+
+  button:focus-visible,
+  a:focus-visible {
+    outline: 1.5px solid #C25934 !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+
+  button:focus:not(:focus-visible),
+  a:focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  body {
+    @apply bg-background text-textPrimary font-sans antialiased leading-relaxed;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* Global readable paragraph constraints and airy museum line-height */
+  p {
+    @apply max-w-prose leading-relaxed;
+  }
+
+  /* Hide default cursor on desktop/fine-pointer devices for custom Awwwards cursor */
+  @media (hover: hover) and (pointer: fine) {
+    *, *::before, *::after {
+      cursor: none !important;
+    }
+  }
+
+  /* Force hide custom cursor on touch and coarse pointer devices */
+  @media (pointer: coarse), (hover: none) {
+    .custom-cursor,
+    [data-custom-cursor] {
+      display: none !important;
+    }
+  }
+
+  /* Global prevention of horizontal scroll leakage while preserving sticky scrolling */
+  html, body {
+    overflow-x: clip;
+  }
+
+  /* Global fixed full-screen SVG noise/grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9990;
+    opacity: 0.03;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  /* Editorial Playfair Display Headings with tight tracking */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair), Georgia, serif !important;
+    letter-spacing: -0.025em; /* tracking-tight */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Utility to completely hide scrollbar where desired */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Outlined Marquee Typography */
+.text-stroke-terracotta {
+  -webkit-text-stroke: 1.2px #C25934;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
