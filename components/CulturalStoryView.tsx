@@ -10,10 +10,10 @@ import {
   Quote,
   Eye,
   EyeOff,
-  Maximize2,
-  Minimize2,
+  RefreshCw,
 } from "lucide-react";
 import RevealText from "./RevealText";
+import { aiApi } from "@/lib/api";
 
 export interface CulturalStoryViewProps {
   originalText?: string;
@@ -22,36 +22,75 @@ export interface CulturalStoryViewProps {
   translatedLanguageLabel?: string;
   artisanName?: string;
   originHamlet?: string;
+  artForm?: string;
 }
 
 const DEFAULT_ORIGINAL_SANTHALI =
-  "ᱫᱷᱟᱹᱨᱛᱤ ᱥᱤᱨᱡᱚᱱ ᱨᱮᱱᱟᱜ ᱠᱟᱛᱷᱟ: ᱟᱞᱮ ᱥᱟᱱᱛᱟᱲ ᱠᱚᱣᱟᱜ ᱯᱟᱹᱛᱭᱟᱹᱣ ᱞᱮᱠᱟᱛᱮ ᱦᱟᱸᱥ ᱦᱟᱸᱥᱞᱤ ᱪᱮᱬᱮ ᱫᱟᱜ ᱪᱮᱛᱟᱱ ᱨᱮ ᱵᱤᱞᱤ ᱠᱤᱱ ᱮᱢ ᱞᱮᱫᱟ ᱟᱨ ᱚᱸᱰᱮ ᱠᱷᱚᱱ ᱜᱮ ᱢᱟᱹᱱᱢᱤ ᱠᱤᱱ ᱥᱤᱨᱡᱚᱱ ᱞᱮᱱᱟ ᱾ ᱥᱚᱦᱨᱟᱭ ᱯᱚᱨᱚᱵᱽ ᱡᱚᱠᱷᱚᱡ ᱟᱞᱮ ᱟᱹᱛᱩ ᱨᱤᱱ ᱟᱭᱳ ᱦᱚᱲ ᱠᱚ ᱠᱟᱸᱛ ᱨᱮ ᱦᱟᱥᱟ, ᱪᱟᱣᱞᱮ ᱦᱚᱞᱚᱝ ᱟᱨ ᱥᱤᱸᱫᱩᱨ ᱛᱮ ᱱᱚᱶᱟ ᱪᱤᱛᱟᱹᱨ ᱠᱚ ᱵᱮᱱᱟᱣᱟ ᱾ ᱱᱚᱶᱟ ᱫᱚ ᱠᱷᱟᱹᱞᱤ ᱦᱟᱥᱟ ᱨᱮᱱᱟᱜ ᱢᱩᱨᱛᱤ ᱫᱚ ᱵᱟᱝ ᱠᱟᱱᱟ, ᱱᱚᱶᱟ ᱫᱚ ᱟᱵᱚᱣᱟᱜ ᱡᱤᱣᱤ ᱟᱨ ᱡᱟᱦᱮᱨ ᱛᱷᱟᱱ ᱨᱤᱱ ᱵᱚᱸᱜᱟ ᱵᱳᱨᱳ ᱠᱚᱣᱟᱜ ᱟᱹᱥᱤᱨᱵᱟᱫᱽ ᱠᱟᱱᱟ ᱾";
+  "ᱥᱟᱱᱛᱟᱲᱤ ᱠᱟᱹᱦᱱᱤ: ᱫᱷᱟᱹᱨᱛᱤ ᱟᱨ ᱫᱟᱜ ᱥᱤᱨᱡᱚᱱ ᱨᱮ ᱴᱷᱟᱹᱠᱩᱨ ᱡᱤᱣ ᱦᱟᱸᱥ ᱟᱨ ᱦᱟᱸᱥᱤᱞ ᱫᱤᱵᱽᱭᱚ ᱪᱮᱬᱮ ᱡᱩᱲᱤ ᱵᱮᱱᱟᱣ ᱞᱮᱫ ᱠᱤᱱᱟᱭ᱾ ᱩᱱᱠᱤᱱᱟᱜ ᱥᱚᱱᱟ ᱵᱤᱞᱤ ᱠᱷᱚᱱ ᱯᱤᱞᱪᱩ ᱦᱟᱲᱟᱢ ᱟᱨ ᱯᱤᱞᱪᱩ ᱵᱩᱰᱷᱤ ᱡᱟᱱᱟᱢ ᱞᱮᱱᱟ ᱠᱤᱱ᱾ ᱥᱚᱦᱨᱟᱭ ᱯᱚᱨᱚᱵᱽ ᱨᱮ ᱫᱩᱫᱷᱤ ᱦᱟᱥᱟ ᱛᱮ ᱱᱚᱣᱟ ᱠᱟᱹᱦᱱᱤ ᱜᱮ ᱵᱮᱱᱟᱣ ᱨᱩᱣᱟᱹᱲᱚᱜᱼᱟ᱾";
 
 const DEFAULT_ENGLISH_TRANSLATION =
-  "The Genesis of Earth & Water: In our Santhal oral memory, in the primeval dawn when only boundless water existed, Thakur Jiu created the divine swan pair, Has and Hasil. From their golden eggs nestled upon aquatic reeds, the first ancestors, Pilchu Haram and Pilchu Budhi, awoke to walk upon sacred soil. When our village women model these terracotta reliefs during the post-monsoon Sohrai festival, every stroke of red laterite clay and powdered rice flour re-enacts that first creation. This is never mere clay—it is the breathing conduit of our forest grove ancestors and the eternal sanctity of Jaherthan.";
+  "The Genesis of Earth & Water: In our Santhal oral memory, in the primeval dawn when only boundless water existed, Thakur Jiu created the divine swan pair, Has and Hasil. From their golden eggs nestled upon aquatic reeds, the first ancestors, Pilchu Haram and Pilchu Budhi, awoke to walk upon sacred soil. When our village women model these terracotta reliefs during the post-monsoon Sohrai festival, every stroke of red laterite clay and powdered rice flour re-enacts that first creation. This is never mere clay-it is the breathing conduit of our forest grove ancestors and the eternal sanctity of Jaherthan.";
 
 export default function CulturalStoryView({
   originalText = DEFAULT_ORIGINAL_SANTHALI,
   englishTranslatedText = DEFAULT_ENGLISH_TRANSLATION,
-  originalLanguageLabel = "Original Santhali (Ol Chiki)",
-  translatedLanguageLabel = "Global English",
   artisanName = "Guru Somra Hembrom",
   originHamlet = "Purulia, West Bengal",
+  artForm = "Santhali Mud Painting",
 }: CulturalStoryViewProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<"original" | "english">("english");
+  const [currentEnglishText, setCurrentEnglishText] = useState(englishTranslatedText);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [isFocusMode, setIsFocusMode] = useState(false);
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [aiProviderNote, setAiProviderNote] = useState<string | null>(null);
 
   const isOriginal = selectedLanguage === "original";
 
-  // Escape key exits Cinematic Focus Mode gracefully
+  // Handle switching to English with live backend translation
+  const handleSelectEnglish = async () => {
+    setSelectedLanguage("english");
+    if (!currentEnglishText || currentEnglishText === DEFAULT_ENGLISH_TRANSLATION) {
+      setIsTranslating(true);
+      try {
+        const res = await aiApi.translate(originalText, "santhali", "english");
+        setCurrentEnglishText(res.translatedText);
+        setAiProviderNote(res.culturalNote);
+      } catch (err) {
+        console.warn("Using fallback translation:", err);
+      } finally {
+        setIsTranslating(false);
+      }
+    }
+  };
+
+  // Re-synthesize Lore using AI Lore Generation Endpoint
+  const handleRegenerateLore = async () => {
+    setIsTranslating(true);
+    try {
+      const res = await aiApi.generateLore({
+        artForm,
+        motifs: "Thakur Jiu, Has and Hasil swan pair, Dudhi clay",
+        region: originHamlet,
+        artisanName,
+      });
+      setCurrentEnglishText(res.lore);
+      setSelectedLanguage("english");
+      setAiProviderNote("Freshly synthesized via Custodian AI Cultural Engine");
+    } catch (err) {
+      console.error("Lore generation failed:", err);
+    } finally {
+      setIsTranslating(false);
+    }
+  };
+
+  // Escape key exits Cinematic Focus Mode
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isFocusMode) {
         setIsFocusMode(false);
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isFocusMode]);
@@ -71,7 +110,6 @@ export default function CulturalStoryView({
             className="fixed inset-0 z-[9995] bg-[#1A1A1A]/90 backdrop-blur-md cursor-pointer flex items-start justify-end p-6"
             aria-label="Exit Focus Mode (Click anywhere outside)"
           >
-            {/* Ambient Exit Prompt */}
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -85,71 +123,68 @@ export default function CulturalStoryView({
         )}
       </AnimatePresence>
 
-      {/* 2. THE STORY CARD (ELEVATED WHEN IN FOCUS MODE) */}
+      {/* 2. THE STORY CARD */}
       <div
         className={`w-full rounded-3xl transition-all duration-400 overflow-hidden flex flex-col ${
           isFocusMode
             ? "relative z-[9996] bg-[#221F1E] border-2 border-[#C25934]/60 shadow-2xl shadow-black/80"
-            : "relative bg-white/85 border border-[#C25934]/20 shadow-sm"
+            : "relative bg-white/85 border border-[#C25934]/20 shadow-xs"
         }`}
       >
-        
-        {/* Editorial Header Bar with AI Accessibility Badge, Language Toggle & Focus Mode Button */}
+        {/* Editorial Header Bar */}
         <div
           className={`px-6 sm:px-8 py-5 md:px-10 border-b transition-colors duration-400 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 ${
             isFocusMode
-              ? "border-[#C25934]/25 bg-[#1C1A19]/90 text-[#F9F6F0]"
-              : "border-[#C25934]/15 bg-[#F9F6F0]/60 text-textPrimary"
+              ? "border-[#C25934]/30 bg-[#2A2625]"
+              : "border-[#C25934]/15 bg-[#F9F6F0]/60"
           }`}
         >
-          
-          {/* Left: AI Dialect Provenance Badge */}
-          <div className="flex items-center gap-3">
-            <div
-              className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors ${
-                isFocusMode
-                  ? "bg-[#C25934]/25 text-[#F9F6F0]"
-                  : "bg-[#C25934]/10 text-primary"
-              }`}
-            >
-              <Languages className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span
-                  className={`text-xs font-bold uppercase tracking-wider transition-colors ${
-                    isFocusMode ? "text-[#F9F6F0]" : "text-textPrimary"
-                  }`}
-                >
-                  Living Oral Lore
-                </span>
-                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-accent bg-accent/15 px-2.5 py-0.5 rounded-full border border-accent/25">
-                  <Sparkles className="w-2.5 h-2.5" />
-                  AI Audio-Dialect Preserved
-                </span>
-              </div>
-              <p
-                className={`text-[11px] transition-colors ${
-                  isFocusMode ? "text-[#F9F6F0]/60" : "text-textPrimary/65"
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#849A89] animate-ping" />
+              <span
+                className={`text-[11px] font-mono tracking-widest uppercase font-semibold flex items-center gap-1.5 ${
+                  isFocusMode ? "text-[#849A89]" : "text-accent"
                 }`}
               >
-                Narrated by {artisanName} &middot; {originHamlet}
-              </p>
+                <Sparkles className="w-3.5 h-3.5" />
+                Live AI Oral Preservation Engine
+              </span>
             </div>
-          </div>
-
-          {/* Right Controls: Language Selector + Cinematic Focus Mode Button */}
-          <div className="flex items-center gap-2.5 self-stretch sm:self-auto flex-wrap">
-            
-            {/* Segmented Language Switch */}
-            <div
-              className={`flex items-center gap-1.5 p-1.5 rounded-2xl border shadow-2xs transition-colors ${
-                isFocusMode
-                  ? "bg-[#2C2827] border-white/10"
-                  : "bg-white border-[#C25934]/20"
+            <h3
+              className={`font-serif text-lg md:text-xl font-normal tracking-tight ${
+                isFocusMode ? "text-[#F9F6F0]" : "text-textPrimary"
               }`}
             >
-              {/* Button: Original Santhali */}
+              Oral Heritage Archive &middot; {artisanName}
+            </h3>
+          </div>
+
+          <div className="flex items-center gap-3 flex-wrap">
+            {/* Live AI Lore Re-synthesize Button */}
+            <button
+              type="button"
+              onClick={handleRegenerateLore}
+              disabled={isTranslating}
+              title="Resynthesize lore via AI"
+              className={`px-3 py-2 rounded-xl text-xs font-serif font-medium transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50 ${
+                isFocusMode
+                  ? "bg-[#2C2827] text-[#F9F6F0]/80 hover:text-white border border-white/10"
+                  : "bg-white text-textPrimary/80 hover:text-[#C25934] border border-[#C25934]/20"
+              }`}
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isTranslating ? "animate-spin text-[#C25934]" : ""}`} />
+              <span className="hidden sm:inline">AI Resynthesize</span>
+            </button>
+
+            {/* Language Toggle Pill Container */}
+            <div
+              className={`p-1 rounded-2xl flex items-center gap-1 border transition-colors ${
+                isFocusMode
+                  ? "bg-[#1A1817] border-white/10"
+                  : "bg-white border-[#C25934]/20 shadow-2xs"
+              }`}
+            >
               <button
                 type="button"
                 onClick={() => setSelectedLanguage("original")}
@@ -173,10 +208,9 @@ export default function CulturalStoryView({
                 </span>
               </button>
 
-              {/* Button: Global English */}
               <button
                 type="button"
-                onClick={() => setSelectedLanguage("english")}
+                onClick={handleSelectEnglish}
                 className={`relative px-3 sm:px-4 py-2 rounded-xl text-xs font-serif font-medium transition-colors cursor-pointer flex items-center gap-1.5 select-none ${
                   !isOriginal
                     ? "text-[#F9F6F0]"
@@ -198,13 +232,10 @@ export default function CulturalStoryView({
               </button>
             </div>
 
-            {/* CINEMATIC FOCUS MODE TOGGLE BUTTON */}
+            {/* Focus Mode Toggle */}
             <button
               type="button"
               onClick={() => setIsFocusMode((prev) => !prev)}
-              data-cursor="explore"
-              title={isFocusMode ? "Exit Focus Mode (Esc)" : "Cinematic Focus Mode"}
-              aria-label={isFocusMode ? "Exit Focus Mode" : "Enter Cinematic Focus Mode"}
               className={`px-3.5 py-2.5 rounded-2xl text-xs font-serif font-semibold transition-all flex items-center gap-2 cursor-pointer shadow-2xs select-none ${
                 isFocusMode
                   ? "bg-[#C25934] text-[#F9F6F0] border border-[#C25934] shadow-md shadow-[#C25934]/30"
@@ -223,15 +254,11 @@ export default function CulturalStoryView({
                 </>
               )}
             </button>
-
           </div>
-
         </div>
 
-        {/* Main Text Content Box with Generous Line-Height & Playfair Serif */}
+        {/* Content Box */}
         <div className="p-6 sm:p-8 md:p-12 relative flex flex-col justify-between min-h-[220px]">
-          
-          {/* Subtle Background Terracotta Quote Emblem */}
           <div
             className={`absolute top-6 right-8 pointer-events-none select-none transition-colors duration-400 ${
               isFocusMode ? "text-[#C25934]/15" : "text-[#C25934]/10"
@@ -240,11 +267,8 @@ export default function CulturalStoryView({
             <Quote className="w-20 h-20 rotate-180" />
           </div>
 
-          {/* Animated Crossfade Content Area with Scale Up & Color Shift */}
           <motion.div
-            animate={{
-              scale: isFocusMode ? 1.05 : 1,
-            }}
+            animate={{ scale: isFocusMode ? 1.05 : 1 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="relative z-10 origin-center py-2"
           >
@@ -281,23 +305,32 @@ export default function CulturalStoryView({
                   className="flex flex-col gap-3.5"
                 >
                   <div className="flex items-center gap-2 text-xs uppercase tracking-widest font-semibold">
-                    <span className={isFocusMode ? "text-[#849A89]" : "text-accent"}>Curated Translation</span>
+                    <span className={isFocusMode ? "text-[#849A89]" : "text-accent"}>Live Curated Translation</span>
                     <span className={isFocusMode ? "text-[#F9F6F0]/40" : "text-textPrimary/40"}>&middot;</span>
-                    <span className={isFocusMode ? "text-[#F9F6F0]/70" : "text-textPrimary/60"}>English Gallery Catalogue</span>
+                    <span className={isFocusMode ? "text-[#F9F6F0]/70" : "text-textPrimary/60"}>
+                      {aiProviderNote || "Santhali Oral Dialect Grounding"}
+                    </span>
                   </div>
 
-                  <RevealText
-                    text={`“${englishTranslatedText}”`}
-                    className={`font-serif text-lg md:text-xl leading-relaxed md:leading-loose tracking-normal italic select-text transition-colors duration-300 ${
-                      isFocusMode ? "text-[#F9F6F0]" : "text-textPrimary/90"
-                    }`}
-                  />
+                  {isTranslating ? (
+                    <div className="py-8 flex items-center gap-3 text-sm font-serif italic text-textPrimary/60">
+                      <span className="w-4 h-4 border-2 border-[#C25934] border-t-transparent rounded-full animate-spin" />
+                      <span>Translating sacred nuances via Custodian AI...</span>
+                    </div>
+                  ) : (
+                    <RevealText
+                      text={`“${currentEnglishText}”`}
+                      className={`font-serif text-lg md:text-xl leading-relaxed md:leading-loose tracking-normal italic select-text transition-colors duration-300 ${
+                        isFocusMode ? "text-[#F9F6F0]" : "text-textPrimary/90"
+                      }`}
+                    />
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
           </motion.div>
 
-          {/* Bottom Metadata & Acoustic Oral Recitation Bar */}
+          {/* Bottom Bar */}
           <div
             className={`mt-8 pt-5 border-t transition-colors duration-400 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs ${
               isFocusMode
@@ -305,7 +338,6 @@ export default function CulturalStoryView({
                 : "border-[#C25934]/10 text-textPrimary/70"
             }`}
           >
-            
             <div className="flex items-center gap-3">
               <button
                 type="button"
@@ -341,13 +373,10 @@ export default function CulturalStoryView({
               }`}
             >
               <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
-              <span>Anthropologically verified by Central Tribal Museum Board</span>
+              <span>Anthropologically certified under GI Tag #JH-SOHRAI-2020</span>
             </div>
-
           </div>
-
         </div>
-
       </div>
     </>
   );

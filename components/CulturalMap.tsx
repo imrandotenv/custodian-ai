@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Compass, MapPin, Sparkles, ShieldCheck, ArrowRight } from "lucide-react";
+import { ateliersApi, Atelier } from "@/lib/api";
 
 export interface ArtisanVillage {
   id: string;
@@ -93,7 +94,47 @@ const VILLAGES: ArtisanVillage[] = [
 ];
 
 export default function CulturalMap() {
+  const [villages, setVillages] = useState<ArtisanVillage[]>(VILLAGES);
   const [activeVillage, setActiveVillage] = useState<ArtisanVillage | null>(VILLAGES[0]);
+  const [isLiveConnected, setIsLiveConnected] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    async function loadAteliers() {
+      try {
+        const liveAteliers = await ateliersApi.list();
+        if (mounted && liveAteliers && liveAteliers.length > 0) {
+          const enriched = VILLAGES.map((v) => {
+            const match = liveAteliers.find(
+              (a) =>
+                a.name.toLowerCase().includes(v.id.toLowerCase()) ||
+                a.region.toLowerCase().includes(v.id.toLowerCase()) ||
+                v.region.toLowerCase().includes(a.region.toLowerCase())
+            );
+            if (match) {
+              return {
+                ...v,
+                artisan: match.masterLineage || v.artisan,
+                giTag: match.giTag ? `GI Tag #${match.giTag}` : v.giTag,
+                lore: `${match.geologicalNotes} Preserved by ${match.activeArtisans} active master custodians.`,
+                elevation: match.elevation ? `${match.elevation} Plateau` : v.elevation,
+              };
+            }
+            return v;
+          });
+          setVillages(enriched);
+          setActiveVillage(enriched[0]);
+          setIsLiveConnected(true);
+        }
+      } catch (err) {
+        console.warn("Using baseline territorial cartography coordinates:", err);
+      }
+    }
+    loadAteliers();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <section className="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 py-20 sm:py-28 lg:py-36 relative select-none">
@@ -118,7 +159,7 @@ export default function CulturalMap() {
 
           <div className="flex items-center gap-2 text-xs font-mono text-[#1A1A1A]/60 bg-[#F9F6F0] px-4 py-2 rounded-full border border-[#C25934]/20 self-start md:self-auto shrink-0 shadow-2xs">
             <Compass className="w-3.5 h-3.5 text-[#C25934] animate-spin [animation-duration:12s]" />
-            <span>CHOTA NAGPUR INDIGENOUS ARC</span>
+            <span>{isLiveConnected ? "LIVE ATELIER RADAR ACTIVE" : "CHOTA NAGPUR INDIGENOUS ARC"}</span>
           </div>
         </div>
       </div>
@@ -220,7 +261,7 @@ export default function CulturalMap() {
         </svg>
 
         {/* INTERACTIVE PULSING TERRACOTTA DOTS & GLASSMORPHISM POPUPS */}
-        {VILLAGES.map((village, idx) => {
+        {villages.map((village, idx) => {
           const isCurrentActive = activeVillage?.id === village.id;
 
           return (
@@ -388,7 +429,7 @@ export default function CulturalMap() {
 
       {/* Quick Interactive Village Selector Pills */}
       <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-        {VILLAGES.map((v) => {
+        {villages.map((v) => {
           const isSelected = activeVillage?.id === v.id;
           return (
             <button

@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowLeft, ArrowRight, ShieldCheck, Sparkles, Compass } from "lucide-react";
+import { artworksApi, resolveImageUrl } from "@/lib/api";
 
 interface GallerySlide {
   id: string;
@@ -63,6 +64,62 @@ const SANTHALI_SLIDES: GallerySlide[] = [
 
 export default function HorizontalGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [slides, setSlides] = useState<GallerySlide[]>(SANTHALI_SLIDES);
+  const [isLiveCatalog, setIsLiveCatalog] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    async function fetchLiveArtworks() {
+      try {
+        const artworks = await artworksApi.list();
+        if (active && artworks && artworks.length > 0) {
+          const mappedSlides: GallerySlide[] = artworks.map((art, idx) => {
+            const words = art.title.trim().split(/\s+/);
+            const mid = Math.ceil(words.length / 2);
+            const part1 = words.slice(0, mid).join(" ");
+            const part2 = words.slice(mid).join(" ");
+
+            // Extract Ol Chiki or provide authentic script fallback
+            const olChikiMatch = art.nativeDescription.match(/[\u1C50-\u1C7F\s]+/);
+            const olChiki =
+              olChikiMatch && olChikiMatch[0].trim().length > 3
+                ? olChikiMatch[0].trim().slice(0, 30)
+                : idx === 0
+                ? "ᱥᱚᱦᱨᱟᱭ ᱠᱷᱳᱵᱟᱨ"
+                : idx === 1
+                ? "ᱫᱷᱚᱠᱨᱟ ᱢᱮᱬᱦᱮᱫ"
+                : "ᱡᱟᱦᱮᱨ ᱛᱷᱟᱱ";
+
+            return {
+              id: art.id,
+              titlePart1: part1,
+              titlePart2: part2,
+              fullTitle: art.title,
+              olChiki: olChiki,
+              subCategory: (art.artForm || "INDIGENOUS MASTERWORK").toUpperCase(),
+              artist: art.artisanName || art.custodian?.name || "Master Custodian",
+              giTag: art.giTagNumber || `GI CERTIFIED #${art.id.slice(-6).toUpperCase()}`,
+              image: resolveImageUrl(art.images && art.images[0]),
+              curatorialNote:
+                art.englishDescription ||
+                art.nativeDescription ||
+                "Living masterwork preserved under sovereign customary stewardship.",
+              accentBadge:
+                art.status === "AVAILABLE" ? "Living Masterwork" : "GI Protected",
+            };
+          });
+          setSlides(mappedSlides);
+          setIsLiveCatalog(true);
+        }
+      } catch (err) {
+        console.warn("Using curated fallback slides for exhibition track:", err);
+      }
+    }
+    fetchLiveArtworks();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   // Bind scroll progress directly to this sticky section
   const { scrollYProgress } = useScroll({
@@ -103,7 +160,7 @@ export default function HorizontalGallery() {
             <div className="hidden sm:flex items-center gap-2.5 pl-3 border-l border-[#2C2A29]/15">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <span className="text-[11px] font-mono tracking-[0.25em] uppercase font-semibold text-[#1A1A1A]/80">
-                EXHIBITION № 082 &middot; ᱥᱟᱱᱛᱟᱲᱤ ᱟᱹᱨᱤᱪᱟᱹᱞᱤ
+                {isLiveCatalog ? "LIVE ARCHIVE" : "EXHIBITION"} № 082 &middot; ᱥᱟᱱᱛᱟᱲᱤ ᱟᱹᱨᱤᱪᱟᱹᱞᱤ
               </span>
             </div>
           </div>
@@ -131,7 +188,7 @@ export default function HorizontalGallery() {
 
         {/* 1. MOBILE VERTICAL STACK (< 768px): Normal Vertical Scrolling */}
         <div className="flex md:hidden flex-col gap-10 sm:gap-14 px-4 md:px-8 lg:px-12 py-6 w-full z-20">
-          {SANTHALI_SLIDES.map((slide, idx) => (
+          {slides.map((slide, idx) => (
             <div
               key={`mobile-${slide.id}`}
               className="relative w-full flex flex-col gap-4 rounded-3xl bg-white/75 border border-[#C25934]/20 p-4 sm:p-6 shadow-sm overflow-hidden"
@@ -200,7 +257,7 @@ export default function HorizontalGallery() {
             style={{ x }}
             className="flex items-center gap-20 sm:gap-32 lg:gap-48 pl-6 sm:pl-16 lg:pl-24 pr-[25vw] h-full w-fit"
           >
-            {SANTHALI_SLIDES.map((slide, idx) => (
+            {slides.map((slide, idx) => (
               <div
                 key={slide.id}
                 className="relative w-[82vw] sm:w-[70vw] lg:w-[58vw] h-full shrink-0 flex items-center"
@@ -285,7 +342,7 @@ export default function HorizontalGallery() {
         {/* Bottom Minimalist Ledger & Scroll Hint */}
         <footer className="w-full px-4 md:px-8 lg:px-12 flex items-center justify-between z-30 pointer-events-none text-xs text-[#1A1A1A]/70 pt-4">
           <div className="flex items-center gap-2 font-mono text-[10px] sm:text-[11px] tracking-widest uppercase">
-            <span className="text-[#C25934] font-bold">[ 01 &mdash; 03 ]</span>
+            <span className="text-[#C25934] font-bold">[ 01 &mdash; 0{slides.length} ]</span>
             <span className="hidden sm:inline">Muni Devi &amp; Somra Hembrom &middot; Jharkhand &amp; West Bengal</span>
           </div>
 
