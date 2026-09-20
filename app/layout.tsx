@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import AppShell from "@/components/AppShell";
+import { ThemeProvider } from "next-themes";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -27,9 +28,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${playfair.variable} ${inter.variable}`}
+    >
       <body className="bg-background text-textPrimary font-sans antialiased min-h-screen">
-        <AppShell>{children}</AppShell>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AppShell>{children}</AppShell>
+        </ThemeProvider>
       </body>
     </html>
   );

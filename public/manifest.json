@@ -1,0 +1,16 @@
+{
+  "name": "Custodian AI - Mitti Heritage",
+  "short_name": "Custodian AI",
+  "description": "Sovereign Tribal Living, Sacred Art Cataloging, and Digital Cultural Consent Protocol",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F9F6F0",
+  "theme_color": "#C25934",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
