@@ -1,0 +1,99 @@
+// Custodian-AI Prisma Schema
+// Compatible with both SQLite (dev) and PostgreSQL (prod)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  name         String
+  role         String        @default("tourist") // "tourist" | "local" | "admin"
+  hamlet       String?
+  bio          String?
+  avatar       String?
+  verifiedGI   Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  artworks     Artwork[]
+  pledges      Pledge[]
+  chatMessages ChatMessage[]
+
+  @@map("users")
+}
+
+model Artwork {
+  id                 String    @id @default(cuid())
+  title              String
+  artForm            String
+  nativeDescription  String
+  englishDescription String
+  price              Float
+  images             String    // JSON string array of image URLs
+  status             String    @default("AVAILABLE") // "AVAILABLE" | "RESERVED" | "ARCHIVED"
+  views              Int       @default(0)
+  pledgeCount        Int       @default(0)
+  consentRules       String    // JSON string array of rule IDs
+  provenanceHash     String    // SHA-256 cryptographic provenance hash
+  giTagNumber        String?
+  originHamlet       String?
+  artisanName        String?
+  custodianId        String
+  custodian          User      @relation(fields: [custodianId], references: [id], onDelete: Cascade)
+  pledges            Pledge[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  @@map("artworks")
+}
+
+model Pledge {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  artworkId        String
+  artwork          Artwork  @relation(fields: [artworkId], references: [id], onDelete: Cascade)
+  acceptedRules    String   // JSON string array of agreed customary rule IDs
+  digitalSignature String   @unique // Cryptographic proof hash
+  depositAmount    Float    @default(0)
+  status           String   @default("ACTIVE") // "ACTIVE" | "FULFILLED" | "REVOKED"
+  createdAt        DateTime @default(now())
+
+  @@map("pledges")
+}
+
+model Atelier {
+  id              String   @id @default(cuid())
+  name            String
+  region          String
+  latitude        Float
+  longitude       Float
+  elevation       String
+  masterLineage   String
+  giTag           String
+  geologicalNotes String
+  activeArtisans  Int      @default(1)
+  createdAt       DateTime @default(now())
+
+  @@map("ateliers")
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  role      String   // "user" | "assistant" | "system"
+  content   String
+  metadata  String?  // JSON string
+  createdAt DateTime @default(now())
+
+  @@map("chat_messages")
+}
