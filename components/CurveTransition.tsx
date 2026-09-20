@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 
 export interface CurveTransitionProps {
@@ -9,15 +9,17 @@ export interface CurveTransitionProps {
 
 export default function CurveTransition({ children }: CurveTransitionProps) {
   // Prevent SSR hydration mismatch by deferring SVG overlay until client mount
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [dimensions, setDimensions] = useState({
     width: 0,
     height: 0,
   });
 
   useEffect(() => {
-    setIsMounted(true);
-
     const updateDimensions = () => {
       setDimensions({
         width: window.innerWidth,

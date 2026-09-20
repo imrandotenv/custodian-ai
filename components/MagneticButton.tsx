@@ -77,7 +77,7 @@ export default function MagneticButton({
         }}
         whileTap={{ scale: disabled ? 1 : 0.97 }}
         className={className}
-        {...(props as any)}
+        {...(props as Record<string, unknown>)}
       >
         <motion.span
           style={{

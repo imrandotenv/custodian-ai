@@ -1,23 +1,30 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { motion, AnimatePresence, animate } from "framer-motion";
 
 // Global in-memory flag to ensure it never runs on route changes within the same SPA session
 let hasLoadedInMemory = false;
 
 export default function Preloader() {
+  const isAlreadyShown = useSyncExternalStore(
+    () => () => {},
+    () => {
+      try {
+        return !!sessionStorage.getItem("mitti_preloader_shown") || hasLoadedInMemory;
+      } catch {
+        return hasLoadedInMemory;
+      }
+    },
+    () => false
+  );
+
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Check if user has already seen the pre-loader in this session
-    if (typeof window !== "undefined") {
-      const hasSeen = sessionStorage.getItem("mitti_preloader_shown");
-      if (hasSeen || hasLoadedInMemory) {
-        setIsLoading(false);
-        return;
-      }
+    if (isAlreadyShown) {
+      return;
     }
 
     // Lock page scroll during initial sequence
@@ -50,6 +57,8 @@ export default function Preloader() {
       document.body.style.overflow = "";
     };
   }, []);
+
+  if (isAlreadyShown) return null;
 
   return (
     <AnimatePresence mode="wait">

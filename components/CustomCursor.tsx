@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useSyncExternalStore } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 
 export default function CustomCursor() {
@@ -17,20 +17,26 @@ export default function CustomCursor() {
   // Hover expansion state (only toggles on element boundary crossing, never on mousemove)
   const [isHovered, setIsHovered] = useState(false);
   const [cursorText, setCursorText] = useState("");
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const isHoveredRef = useRef(false);
   const cursorTextRef = useRef("");
 
+  const isTouchDevice = useSyncExternalStore(
+    () => () => {},
+    () => {
+      if (typeof window === "undefined") return false;
+      return (
+        window.matchMedia("(pointer: coarse)").matches ||
+        window.matchMedia("(hover: none)").matches ||
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0
+      );
+    },
+    () => false
+  );
+
   useEffect(() => {
     // Disable on touch devices to maintain native mobile touch interactions
-    const isTouch =
-      window.matchMedia("(pointer: coarse)").matches ||
-      window.matchMedia("(hover: none)").matches ||
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0;
-
-    if (isTouch) {
-      setIsTouchDevice(true);
+    if (isTouchDevice) {
       return;
     }
 

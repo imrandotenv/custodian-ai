@@ -33,16 +33,12 @@ export default function CipherLink({
   onMouseLeave,
 }: CipherLinkProps) {
   const originalText = children;
-  const [displayText, setDisplayText] = useState(originalText);
+  const [scrambledText, setScrambledText] = useState<string | null>(null);
   const [isScrambling, setIsScrambling] = useState(false);
+  const displayText = isScrambling && scrambledText ? scrambledText : originalText;
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Sync displayed text if prop changes
-  useEffect(() => {
-    setDisplayText(originalText);
-  }, [originalText]);
 
   // Clean up timers on unmount
   useEffect(() => {
@@ -63,7 +59,7 @@ export default function CipherLink({
 
     // Rapid scramble loop (updates every 30ms)
     intervalRef.current = setInterval(() => {
-      setDisplayText(
+      setScrambledText(
         originalText
           .split("")
           .map((char) => {
@@ -78,7 +74,7 @@ export default function CipherLink({
     // After exactly 300ms, snap text immediately back to the original English string
     timeoutRef.current = setTimeout(() => {
       if (intervalRef.current) clearInterval(intervalRef.current);
-      setDisplayText(originalText);
+      setScrambledText(null);
       setIsScrambling(false);
     }, 300);
   };
