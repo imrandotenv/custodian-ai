@@ -71,6 +71,28 @@ const TRIBAL_ARTISTS: TribalArtist[] = [
       "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=85",
     giTag: "Sovereign Music Master",
   },
+  {
+    id: "anil-chitrakar",
+    name: "Anil Chitrakar",
+    olChiki: "ᱯᱟᱭᱤᱛᱠᱟᱨ ᱪᱤᱛᱟᱹᱨ",
+    craft: "Paitkar Ancient Scroll Painting",
+    location: "Amadubi, East Singhbhum",
+    artworkTitle: "Santhal Genesis & Pilchu Haram Scroll",
+    image:
+      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1200&q=85",
+    giTag: "Amadubi Chitrakar Guild",
+  },
+  {
+    id: "parvati-devi",
+    name: "Parvati Devi & SHG",
+    olChiki: "ᱞᱮᱫᱽᱨᱟ ᱠᱤᱪᱨᱤᱡ",
+    craft: "Ledra Hand-Stitched Folk Quilting",
+    location: "Ramgarh Cantt, Jharkhand",
+    artworkTitle: "Multi-layered Kantha-Stitch Earthen Quilt",
+    image:
+      "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1200&q=85",
+    giTag: "Ramgarh Women Collective",
+  },
 ];
 
 export default function ArtistListHoverReveal() {

@@ -17,9 +17,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Mitti Heritage - Indian Tribal Arts & Cultural Living",
+  title: "Maati Ghar (माटी घर) - From the Earth, For the Soul | Jharkhand Tribal Arts",
   description:
-    "An award-winning, premium light theme inspired by Indian tribal mud architecture and raw terracotta traditions.",
+    "Authentic Sohrai Khovar mud murals, ancient Paitkar scrolls, Dokra metalcraft, Ledra folk quilts, and handcrafted terracotta pottery from Ramgarh Cantt, Jharkhand. 100% natural earth pigments.",
 };
 
 export default function RootLayout({

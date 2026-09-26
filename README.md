@@ -1,5 +1,5 @@
-# ᱢᱤᱛᱛᱤ &middot; MITTI (Custodian AI)
-### Sovereign Indian Tribal Heritage Living &bull; Cultural Consent Engine &bull; Ol Chiki AI Storyteller
+# ᱢᱟᱴᱤ ᱜᱷᱟᱨ &middot; MAATI GHAR &bull; माटी घर
+### "From the Earth, For the Soul" &bull; Indigenous Tribal Arts of Jharkhand &bull; Ramgarh Cantt Social Enterprise
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)](https://react.dev/)
@@ -9,160 +9,139 @@
 
 ---
 
-## ✦ Overview
+## ✦ Overview & Vision
 
-**Mitti** (or **Custodian AI**) is a digital sanctuary engineered to return sovereignty to indigenous Indian artisans, centering around the ancient **Santhali traditions** of the Chota Nagpur Plateau and Purulia Arc: **Sohrai Khovar mud sgraffito**, **4,000-year-old lost-wax Dokra metallurgy**, and the **Ol Chiki script**.
+Inspired directly by **[Maati Ghar](https://www.maatighar.com/)** (*माटी घर / Earthen Home*), this platform is a sovereign digital sanctuary and grassroots social enterprise born in **Ramgarh Cantt, Jharkhand** (Gola Road, Bazar Tand - 829122).
 
-Traditional platforms commercialize and dilute tribal culture through middleman exploitation, unauthorized physical replication, and digital misattribution. **Mitti** redefines cultural exchange by enforcing customary tribal law through a **Smart Cultural Consent Protocol**, guaranteeing **100% direct artisan remuneration**, and utilizing AI to preserve indigenous oral memory in its native Ol Chiki tongue.
-
----
-
-## ✦ Core USPs & Innovation
-
-### 1. 🛡️ Active Smart Cultural Consent Protocol (Customary Law Engine)
-- Acquisitions and residency bookings remain cryptographically and procedurally **locked** until a traveler solemnly agrees to the master custodian’s sacred customary rules.
-- **Custom Rules Enforced**: Strict prohibition of flash photography inside the sacred *Jaher Than*, respect for harvest motifs, and non-touch protocols for raw kaolin/laterite clay and bronze patinas.
-- **Direct Payouts**: 0% platform commission; 100% direct remuneration sent to custodian bank accounts (e.g., Muni Devi, Sohrai Guild).
-
-### 2. 🗣️ Ol Chiki Living Language & AI Accessibility
-- **Preserved Oral Archives**: Displays traditional creation stories (such as the primeval dawn of *Thakur Jiu* and the divine swan pair *Has & Hasil*) in native **Ol Chiki script** (`ᱥᱟᱱᱛᱟᱲᱤ`).
-- **AI-Powered Dual Translation**: Real-time toggling between authentic Santhali dialect and global English, backed by audio invocation and typographic decoding micro-interactions.
-- **Cinematic Focus Mode**: An immersive reading modal (`backdrop-blur-md` overlay, scaled typography, high-contrast Warm Sand palette) for deep cultural focus.
-
-### 3. 🗺️ Topography of Living Ateliers (Abstract Territorial Map)
-- Custom-coded minimalist SVG vector map of Jharkhand and West Bengal indigenous plateaus (*Hazaribagh, Purulia Hills, Dumka, Mayurbhanj*).
-- **Dual-Wave Sonar Radar Pings**: Pulsing Terracotta concentric waves animate behind village coordinates, making the regional atlas feel alive without relying on commercial map engines like Google Maps or Leaflet.
-- Interactive glassmorphic modals display artisan lineage, GI-tag credentials, elevations, and local geological notes.
-
-### 4. 🎭 Dual Gatekeeper Architecture
-- A fullscreen split-curtain entryway dividing incoming visitors into:
-  - **The Traveler / Tourist**: Guided into high-end curated exhibitions, ethical residencies, and digital pledge flows.
-  - **The Master Custodian**: Direct portal to inventory control, digital pledge logs, fair-trade earnings, and rule enforcement monitors.
+We exist to protect, revitalize, and directly empower rural women Self-Help Groups (SHGs) and generational tribal artisans across Jharkhand. We reject commercial middlemen and toxic synthetic acrylics, anchoring every creation in **100% natural earth mineral pigments** and customary tribal ethics.
 
 ---
 
-## ✦ Awwwards-Calibrated Editorial UX & Physics
+## ✦ The 5 Indigenous Traditions of Maati Ghar
 
-The platform is designed with an earthy, physical, museum-grade aesthetic inspired by tribal mud architecture:
+1. **Sohrai & Khovar Mud Murals (Hazaribagh & Ramgarh)**
+   - *Technique*: Comb-cut sgraffito through wet Dudhi kaolin mud into black manganese river silt.
+   - *Occasion*: Post-harvest Sohrai festival (celebrating cattle and agriculture) & Khovar bridal chamber fertility rites.
+   - *Protection*: GI Certified #JH-SOHRAI-2020.
 
-- **3D Mouse Tracking Tilt Cards (`TiltCard.tsx`)**: Physics-based cursor parallax with dynamic specular white glare moving opposite to cursor position.
-- **Window Reveal Parallax (`ParallaxImage.tsx`)**: Fluid image zoom and translation driven by Framer Motion and viewport scroll progress.
-- **Staggered Word Masking (`RevealText.tsx`)**: Split-word masked entrance using a high-tension cubic bezier `[0.76, 0, 0.24, 1]`.
-- **Smart Glassmorphism Header (`Navbar.tsx`)**: Ultra-thin `border-b border-black/5`, `bg-[#F9F6F0]/60` with `backdrop-blur-xl`, featuring auto-hide scroll physics (hides on downscroll, reveals on micro-upscroll).
-- **Ol Chiki Cipher Micro-Interaction (`CipherLink.tsx`)**: Nav links rapidly scramble through random Ol Chiki glyphs (`['ᱚ', 'ᱛ', 'ᱜ', 'ᱝ', 'ᱞ', 'ᱟ', 'ᱠ', 'ᱡ', 'ᱢ', 'ᱣ']`) for 300ms on hover before decoding to English.
-- **Liquid SVG Curve Transition (`CurveTransition.tsx`)**: Earth-toned liquid path sweeping dynamically across routes.
+2. **Paitkar Ancient Scroll Paintings (Amadubi Village, East Singhbhum)**
+   - *Technique*: The oldest living folk scroll painting tradition of India, created by hereditary *Chitrakars*.
+   - *Medium*: Hand-crushed stone ochres, Mahua bark, and neem leaf extracts bound with babool gum on handmade jute paper.
+
+3. **Dhokra Lost-Wax Bell-Metal Metallurgy (Purulia & Bastar Arc)**
+   - *Technique*: 4,000-year-old non-ferrous bronze casting using pure beeswax filaments hand-wound over alluvial river mud cores.
+   - *Motifs*: Sacred horned bison, village drummers, madal musicians, and forest deities.
+
+4. **Jadopatia Santhal Creation Lore Scrolls (Dumka & Santhal Parganas)**
+   - *Technique*: Ancestral narrative scrolls recited by wandering *Jadu Patuas* during harvest and transition rites.
+   - *Medium*: Mineral soils, wild tamarind seed binder, and lampblack soot.
+
+5. **Ledra Vintage Hand-Stitched Folk Quilts (Ramgarh Cantt SHGs)**
+   - *Technique*: Multilayered vintage organic cotton lovingly hand-quilted with rhythmic running stitches.
+   - *Impact*: Dignified economic self-reliance for rural women craft collectives in Ramgarh Cantt.
+
+---
+
+## ✦ The 4 Sacred Earth Minerals (चार प्राकृतिक रंग)
+
+| Pigment | Hindi | Natural Source | Cultural Significance |
+| :--- | :--- | :--- | :--- |
+| **Lal Mati** | लाल माटी | Red laterite clay | Fertility, life force, womb of mother nature |
+| **Dudhi Mati** | दूधी माटी | White kaolin clay | Purity, peace, riverbed clarity |
+| **Pili Mati** | पीली माटी | Yellow mineral ochre | Sun energy, ripening paddy, divine prosperity |
+| **Bhalo Char** | भालो चार | Manganese silt & hearth soot | Ancestral depth, soil resilience, protective foundation |
+
+---
+
+## ✦ Key Features & Modules
+
+### 1. 🛍️ The Maati Ghar Atelier (`MaatiGharCollection.tsx`)
+- Interactive curated catalog with filter navigation pills: *All Curations*, *Sohrai & Khovar*, *Paitkar Scrolls*, *Dhokra Bronze*, *Ledra Quilts*, *Terracotta & Lifestyle*.
+- **Sacred Pigment Badges**: Every piece displays its natural pigment pedigree (e.g., *Dudhi Kaolin Mud & Charcoal Soot*).
+- **Fair-Trade Transparent Ledger**: Displays total price alongside exact direct remuneration percentage to the artisan (e.g., ₹4,200 of ₹4,800 directly to Muni Devi).
+- **Direct WhatsApp Inquiry & Reservation**: Integrated with `+91 72608 15628` for bespoke wall mural commissions and artwork inquiries.
+
+### 2. 🛡️ Active Smart Cultural Consent Protocol (`SmartConsent.tsx`)
+- Acquisitions and workshop reservations remain procedurally locked until visitors solemnly accept customary community rules.
+- Enforces strict no-flash photography inside the sacred *Jaher Than*, respect for fertility motifs, and non-touch protocols for unsealed Dudhi clay.
+
+### 3. 🗣️ Living Language Oral Memory (`CulturalStoryView.tsx`)
+- AI-accessible bilingual toggle between authentic **Ol Chiki script** (`ᱥᱟᱱᱛᱟᱲᱤ`) and Global English.
+- Details the primeval creation epic of *Thakur Jiu*, the divine swan pair *Has & Hasil*, and the first ancestors *Pilchu Haram & Pilchu Budhi*.
+
+### 4. 🗺️ Topography of Living Ateliers (`CulturalMap.tsx`)
+- Abstract SVG territorial map of the Chota Nagpur Plateau with pulsing radar pings.
+- Coordinates for **Ramgarh Cantt** (HQ & Ledra Quilts), **Hazaribagh** (Sohrai), **Amadubi** (Paitkar scrolls), **Purulia Hills** (Dhokra bronze), and **Dumka** (Jadopatia).
+
+### 5. 🎭 Dual Gatekeeper Architecture (`page.tsx`)
+- Fullscreen split-screen entrance:
+  - **Traveler / Art Lover**: Journey into the Atelier, cultural trails, and digital pledge flows.
+  - **Artisan Custodian / SHG**: Direct portal for inventory cataloging, custom consent rules, and payout tracking.
+
+---
+
+## ✦ Awwwards-Calibrated Editorial UX & Design Physics
+
+- **Smart Glassmorphism Header (`Navbar.tsx`)**: `bg-[#F9F6F0]/80` with `backdrop-blur-xl`, featuring auto-hide scroll physics (hides on downscroll, reveals on micro-upscroll).
+- **Ol Chiki Cipher Micro-Interaction (`CipherLink.tsx`)**: Scrambles through indigenous glyphs (`['ᱚ', 'ᱛ', 'ᱜ', 'ᱝ', 'ᱞ', 'ᱟ', 'ᱠ', 'ᱡ', 'ᱢ', 'ᱣ']`) on hover before decoding.
+- **3D Mouse Tracking Tilt Cards (`TiltCard.tsx`)**: Cursor parallax with dynamic specular white glare.
+- **Window Reveal Parallax (`ParallaxImage.tsx`)**: Fluid image zoom driven by viewport scroll progress.
+- **Infinite Outlined Text Marquee (`TextMarquee.tsx`)**: Smooth continuous ticker with terracotta stroke typography.
+- **Custom Touch-Safe Cursor (`CustomCursor.tsx`)**: Physics spring dot with `z-[9999]` strict layering and automatic suppression on touch devices (`@media (pointer: coarse)`).
 - **Responsive Dual-Mode Gallery (`HorizontalGallery.tsx`)**:
-  - **Desktop ($\ge$ 768px)**: Edge-to-edge 380vh sticky horizontal sliding track.
-  - **Mobile (< 768px)**: Seamless vertical card stack with normal touch scrolling.
-- **Touch-Device Cursor Suppression (`CustomCursor.tsx`)**: Hardware-accelerated trailing spring dot that automatically disables on touch/coarse pointers (`@media (pointer: coarse)` and runtime detection) with `z-[9999]` strict layering on desktop.
+  - **Desktop ($\ge$ 768px)**: 480vh sticky horizontal sliding track.
+  - **Mobile (< 768px)**: Vertical card stack with native touch scrolling.
 
 ---
 
-## ✦ Color Palette & Theme System
+## ✦ Color Palette System
 
 | Color | Hex | Role | Cultural Symbolism |
 | :--- | :--- | :--- | :--- |
-| **Terracotta** | `#C25934` | Primary Accent | Sacred earthenware kilns, Chota Nagpur laterite mud |
-| **Warm Sand** | `#F9F6F0` | Canvas Background | Kaolin clay (*Dudhi Mati*), unbleached handmade paper |
-| **Charcoal** | `#1A1A1A` | Typography & Contrast | Manganese river mud, ancestral hearth soot |
+| **Terracotta** | `#C25934` | Primary Accent | Lalmati clay, sacred kilns, Ramgarh laterite soil |
+| **Warm Sand** | `#F9F6F0` | Canvas Background | Kaolin Dudhi mud, unbleached handmade paper |
+| **Charcoal** | `#1A1A1A` | Typography & Contrast | Riverbed manganese mud, hearth soot (*Bhalo Char*) |
 | **Sage Green** | `#849A89` | Consent & Living Lore | Sacred Sal tree leaves (*Shorea robusta*) |
-| **Copper Glow**| `#E5A882` | Secondary Highlights | Dokra bell-metal bronze and beeswax patina |
-
----
-
-## ✦ Tech Stack
-
-- **Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
-- **Bundler & Compiler**: Turbopack & React 19
-- **Typography**: [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) & [Inter](https://fonts.google.com/specimen/Inter)
-- **Animation & Micro-interactions**: [Framer Motion](https://www.framer.com/motion/)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **Smooth Scroll**: [Lenis Scroll](https://lenis.darkroom.engineering/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-
----
-
-## ✦ Project Structure
-
-```
-p1/
-├── app/
-│   ├── add-art/             # Custodian inventory cataloging portal
-│   ├── dashboard/           # Master Artisan command center (Muni Devi portal)
-│   ├── explore/             # Exhibition hall, Living Map, and Pledge Engine
-│   ├── globals.css          # Noise texture, custom scrollbars, typography
-│   ├── layout.tsx           # Global Root layout & font orchestration
-│   ├── page.tsx             # Dual Gatekeeper split landing experience
-│   └── template.tsx         # Liquid SVG transition wrapper
-├── components/
-│   ├── AmbientAudio.tsx     # Ambient atmospheric ritual audio toggle
-│   ├── AppShell.tsx         # Unified shell with noise overlay & Lenis scroll
-│   ├── ArtDetails.tsx       # Artwork showcase, 3D tilt canvas, & lore view
-│   ├── ArtistListHoverReveal.tsx # Hover reveal directory with mobile fallback
-│   ├── CipherLink.tsx       # Ol Chiki decoding typography micro-interaction
-│   ├── CulturalMap.tsx      # Stylized SVG territorial map with radar pings
-│   ├── CulturalStoryView.tsx # Ol Chiki story translation & Focus Mode
-│   ├── CurveTransition.tsx  # Dynamic liquid curve route transitions
-│   ├── CustodianUploadForm.tsx # Sovereign art cataloging with consent rules
-│   ├── CustomCursor.tsx     # High-stiffness spring cursor (z-[9999], touch-safe)
-│   ├── Footer.tsx           # Massive editorial 'MITTI' centerpiece footer
-│   ├── HorizontalGallery.tsx# Responsive horizontal/vertical sticky gallery
-│   ├── MagneticButton.tsx   # Physics-based magnetic attraction buttons
-│   ├── Navbar.tsx           # Smart auto-hide glassmorphism header
-│   ├── ParallaxImage.tsx    # Scroll-bound image canvas parallax
-│   ├── Preloader.tsx        # Initial editorial museum entrance preloader
-│   ├── RevealText.tsx       # Split-word staggered masking reveal
-│   ├── RoleContext.tsx      # Dual-role state management (Traveler / Custodian)
-│   ├── ScrollProgress.tsx   # Circular SVG scroll meter with dynamic percentage
-│   ├── SmartConsent.tsx     # Customary consent protocol with pulsing badges
-│   ├── SmoothScroll.tsx     # Lenis smooth scrolling orchestrator
-│   ├── TextMarquee.tsx      # Infinite outlined typography banner
-│   └── TiltCard.tsx         # 3D mouse tracking tilt with physical glare
-└── tailwind.config.ts       # Design system tokens and earthen color palette
-```
+| **Mineral Ochre**| `#D9822B` | Solar Accent | Sun-dried Pilimati yellow earth |
 
 ---
 
 ## ✦ Getting Started
 
 ### Prerequisites
-- Node.js 18.17+ or 20+
-- npm, yarn, or pnpm
+- Node.js 18+ or 20+
+- npm or pnpm
 
 ### Installation
-
 ```bash
-# Clone the repository
 git clone https://github.com/imrandotenv/custodian-ai.git
-
-# Navigate into project directory
 cd custodian-ai
-
-# Install dependencies
 npm install
 ```
 
-### Running Locally
-
+### Development Server
 ```bash
-# Start Next.js development server with Turbopack
 npm run dev
 ```
-
-Visit `http://localhost:3000` to experience the sanctuary.
+Open [http://localhost:3000](http://localhost:3000) to experience the live platform.
 
 ### Production Build
-
 ```bash
-# Compile and optimize for production
 npm run build
-
-# Start production server
-npm start
+npm run start
 ```
 
 ---
 
-## ✦ Sovereign Intellectual Property Notice
+## ✦ Contact & Headquarters
 
-All Santhali mural iconography, Sohrai Khovar techniques, and Dokra lost-wax casting details documented in this archive remain the sovereign cultural patrimony of the indigenous communities of Jharkhand, Odisha, and West Bengal. Certified under **GI Tag #JH-SOHRAI-2020**.
+- **Enterprise**: Maati Ghar (माटी घर)
+- **Address**: Gola Road, Bazar Tand, Ramgarh Cantt, Jharkhand - 829122, India
+- **WhatsApp**: [+91 72608 15628](https://wa.me/917260815628)
+- **Email**: [maatikaghar@gmail.com](mailto:maatikaghar@gmail.com)
+- **Website**: [maatighar.com](https://www.maatighar.com/)
+- **GI Tag**: #JH-SOHRAI-2020 (Government of India)
+
+---
+
+&copy; 2026 Maati Ghar Social Enterprise &bull; Culture on its own sovereign terms.

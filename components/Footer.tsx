@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowUp, ArrowUpRight, Compass, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Compass, ShieldCheck, Sparkles, MessageCircle, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   const [isHovered, setIsHovered] = useState(false);
@@ -31,37 +31,77 @@ export default function Footer() {
       {/* 2. TOP EDITORIAL HEADER & NAVIGATION LEDGER */}
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start gap-12 border-b border-[#F9F6F0]/20 pb-12">
         
-        {/* Left: Brand Lore & Ol Chiki Cultural Mission */}
+        {/* Left: Brand Lore & Maati Ghar Social Enterprise Mission */}
         <div className="flex flex-col gap-4 max-w-lg">
           <div className="flex items-center gap-3">
             <span className="w-2.5 h-2.5 rounded-full bg-[#F9F6F0] animate-pulse" />
             <span className="font-mono text-xs tracking-[0.3em] uppercase font-semibold text-[#F9F6F0]/80">
-              ᱥᱟᱱᱛᱟᱲᱤ ᱟᱹᱨᱤᱪᱟᱹᱞᱤ &middot; LIVING HERITAGE
+              माटी घर &middot; FROM THE EARTH, FOR THE SOUL
             </span>
           </div>
 
           <h3 className="font-serif text-2xl sm:text-3xl font-light text-[#F9F6F0] tracking-tight leading-snug">
-            Culture on its own sovereign terms.
+            Sovereign Art from the Heart of Jharkhand.
           </h3>
 
           <p className="font-sans text-xs sm:text-sm text-[#F9F6F0]/80 leading-relaxed font-light max-w-md">
-            Direct custodian remuneration, custom ritual consent protocols, and preserved Ol Chiki living archives—without commercial distortion.
+            A grassroots social enterprise celebrating Jharkhand&apos;s indigenous tribal arts, organic earthen crafts, and rural women Self-Help Groups (SHGs). 100% natural earth pigments, zero toxic chemicals, and direct fair-trade artisan remuneration.
           </p>
+
+          <div className="flex flex-col gap-1.5 pt-2 text-xs font-mono text-[#F9F6F0]/90">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-3.5 h-3.5 text-[#F9F6F0]/70" />
+              <span>Gola Road, Bazar Tand, Ramgarh Cantt, Jharkhand - 829122</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MessageCircle className="w-3.5 h-3.5 text-[#F9F6F0]/70" />
+              <a
+                href="https://wa.me/917260815628"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline font-bold"
+              >
+                WhatsApp: +91 72608 15628
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              <Mail className="w-3.5 h-3.5 text-[#F9F6F0]/70" />
+              <a href="mailto:maatikaghar@gmail.com" className="hover:underline">
+                maatikaghar@gmail.com
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Right: Curatorial Navigation Directory */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 w-full lg:w-auto">
-          {/* Column 1: Exploration */}
+          {/* Column 1: Atelier Collection */}
           <div className="flex flex-col gap-3">
             <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#F9F6F0]/60 font-semibold">
-              Explore
+              Atelier
             </span>
+            <Link
+              href="/explore#collection"
+              data-cursor="explore"
+              className="text-xs sm:text-sm font-serif text-[#F9F6F0]/90 hover:text-[#F9F6F0] hover:translate-x-1 transition-all flex items-center gap-1"
+            >
+              <span>Maati Ghar Collection</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+            </Link>
             <Link
               href="/explore"
               data-cursor="explore"
               className="text-xs sm:text-sm font-serif text-[#F9F6F0]/90 hover:text-[#F9F6F0] hover:translate-x-1 transition-all flex items-center gap-1"
             >
-              <span>Horizontal Gallery</span>
+              <span>5 Sacred Traditions</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+            </Link>
+            <Link
+              href="/explore#cultural-map"
+              data-cursor="explore"
+              className="text-xs sm:text-sm font-serif text-[#F9F6F0]/90 hover:text-[#F9F6F0] hover:translate-x-1 transition-all flex items-center gap-1"
+            >
+              <span>Living Atelier Map</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
             </Link>
             <Link
@@ -69,15 +109,7 @@ export default function Footer() {
               data-cursor="explore"
               className="text-xs sm:text-sm font-serif text-[#F9F6F0]/90 hover:text-[#F9F6F0] hover:translate-x-1 transition-all flex items-center gap-1"
             >
-              <span>Digital Pledge</span>
-              <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
-            </Link>
-            <Link
-              href="/"
-              data-cursor="explore"
-              className="text-xs sm:text-sm font-serif text-[#F9F6F0]/90 hover:text-[#F9F6F0] hover:translate-x-1 transition-all flex items-center gap-1"
-            >
-              <span>Gatekeeper Portal</span>
+              <span>Digital Consent Pledge</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
             </Link>
           </div>
@@ -92,7 +124,7 @@ export default function Footer() {
               data-cursor="explore"
               className="text-xs sm:text-sm font-serif text-[#F9F6F0]/90 hover:text-[#F9F6F0] hover:translate-x-1 transition-all flex items-center gap-1"
             >
-              <span>Muni Devi Portal</span>
+              <span>Artisan Portal</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
             </Link>
             <Link
@@ -103,24 +135,30 @@ export default function Footer() {
               <span>Catalog New Art</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
             </Link>
-            <span className="text-xs sm:text-sm font-serif text-[#F9F6F0]/50 cursor-not-allowed">
-              Purulia Dokra Guild
+            <span className="text-xs sm:text-sm font-serif text-[#F9F6F0]/80">
+              Ramgarh Women SHG
+            </span>
+            <span className="text-xs sm:text-sm font-serif text-[#F9F6F0]/80">
+              Amadubi Chitrakars
             </span>
           </div>
 
           {/* Column 3: Heritage Provenance */}
           <div className="flex flex-col gap-3">
             <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#F9F6F0]/60 font-semibold">
-              Sanctuary
+              Provenance
             </span>
             <span className="text-xs text-[#F9F6F0]/85 font-mono">
-              Hazaribagh &middot; Purulia
+              Ramgarh &bull; Hazaribagh
+            </span>
+            <span className="text-xs text-[#F9F6F0]/85 font-mono">
+              Amadubi &bull; Dumka
             </span>
             <span className="text-xs text-[#F9F6F0]/85 font-mono">
               GI Tag #JH-SOHRAI-2020
             </span>
             <span className="text-xs text-[#F9F6F0]/85 font-mono">
-              100% Direct Remuneration
+              100% Soil &amp; Mineral Dyes
             </span>
           </div>
         </div>
@@ -133,7 +171,7 @@ export default function Footer() {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           data-cursor="explore"
-          data-cursor-text="MITTI"
+          data-cursor-text="MAATI"
           className="group relative cursor-pointer text-center w-full max-w-[96vw]"
         >
           {/* Subtle Tribal Motif Highlight inside container */}
@@ -148,18 +186,18 @@ export default function Footer() {
             }}
           />
 
-          {/* Massive Centerpiece Text: MITTI */}
+          {/* Massive Centerpiece Text: MAATI GHAR */}
           <h2
-            className="font-serif text-6xl sm:text-8xl md:text-[14vw] lg:text-[18vw] font-bold uppercase tracking-tight leading-[0.85] select-none text-[#F9F6F0] hover:text-transparent transition-all duration-500 [-webkit-text-stroke:1.5px_#F9F6F0] group-hover:[-webkit-text-stroke:2px_#F9F6F0] drop-shadow-sm transform group-hover:scale-[1.01] will-change-transform max-w-full overflow-hidden"
+            className="font-serif text-5xl sm:text-7xl md:text-[11vw] lg:text-[13vw] font-bold uppercase tracking-tight leading-[0.88] select-none text-[#F9F6F0] hover:text-transparent transition-all duration-500 [-webkit-text-stroke:1.5px_#F9F6F0] group-hover:[-webkit-text-stroke:2px_#F9F6F0] drop-shadow-sm transform group-hover:scale-[1.01] will-change-transform max-w-full overflow-hidden"
           >
-            MITTI
+            MAATI GHAR
           </h2>
 
-          {/* Floating Ol Chiki Subtitle Pill */}
+          {/* Floating Hindi & Ol Chiki Subtitle Pill */}
           <div className="mt-2 sm:mt-4 flex items-center justify-center gap-3 text-xs font-mono tracking-[0.35em] uppercase text-[#F9F6F0]/70 group-hover:text-[#F9F6F0] transition-colors">
-            <span>ᱢᱤᱛᱛᱤ</span>
+            <span>माटी घर</span>
             <span>&middot;</span>
-            <span>SOVEREIGN TRIBAL SOIL</span>
+            <span>FROM THE EARTH, FOR THE SOUL</span>
             <span>&middot;</span>
             <span>ᱥᱟᱱᱛᱟᱲᱤ</span>
           </div>
@@ -171,9 +209,9 @@ export default function Footer() {
         
         {/* Left: Copyright & Customary Ownership */}
         <div className="flex items-center gap-2 text-center sm:text-left">
-          <span>&copy; {new Date().getFullYear()} MITTI ARCHIVE</span>
+          <span>&copy; {new Date().getFullYear()} MAATI GHAR SOCIAL ENTERPRISE</span>
           <span>&middot;</span>
-          <span>CUSTODIAN CULTURAL SOVEREIGNTY</span>
+          <span>RAMGARH CANTT</span>
         </div>
 
         {/* Center: Back To Top */}
@@ -192,7 +230,7 @@ export default function Footer() {
         <div className="flex items-center gap-2 text-center sm:text-right">
           <span>GI #JH-SOHRAI-2020</span>
           <span>&middot;</span>
-          <span>CENTRAL TRIBAL BOARD</span>
+          <span>JHARKHAND TRIBAL CRAFT</span>
         </div>
 
       </div>

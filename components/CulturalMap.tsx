@@ -91,6 +91,34 @@ const VILLAGES: ArtisanVillage[] = [
     elevation: "Usri River Valley",
     lore: "Four-stringed acoustic lutes hand-sculpted from fallen Sal timber and dried gourds.",
   },
+  {
+    id: "ramgarh",
+    name: "Ramgarh Cantt",
+    region: "Maati Ghar Headquarters & SHG Hub",
+    coordinates: "23°38'N · 85°31'E",
+    xPct: 42,
+    yPct: 46,
+    artForm: "Ledra Quilts & Terracotta Pottery",
+    artisan: "Ramgarh Women Craft Collective",
+    olChiki: "ᱢᱟᱴᱤ ᱜᱷᱟᱨ",
+    giTag: "Maati Ghar Atelier HQ",
+    elevation: "Damodar River Basin",
+    lore: "Generational hub for upcycled organic Ledra folk quilts and wheel-thrown Sohrai terracotta craft.",
+  },
+  {
+    id: "amadubi",
+    name: "Amadubi Village",
+    region: "East Singhbhum Chitrakar Arc",
+    coordinates: "22°35'N · 86°30'E",
+    xPct: 62,
+    yPct: 68,
+    artForm: "Paitkar Ancient Scroll Painting",
+    artisan: "Anil Chitrakar & Amadubi Guild",
+    olChiki: "ᱯᱟᱭᱤᱛᱠᱟᱨ ᱪᱤᱛᱟᱹᱨ",
+    giTag: "Oldest Indian Folk Scroll",
+    elevation: "Subarnarekha River Valley",
+    lore: "Ancient village of hereditary Chitrakar scroll painters using stone ochre, tree bark, and Mahua leaves.",
+  },
 ];
 
 export default function CulturalMap() {
@@ -137,7 +165,7 @@ export default function CulturalMap() {
   }, []);
 
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 py-20 sm:py-28 lg:py-36 relative select-none">
+    <section id="cultural-map" className="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 py-20 sm:py-28 lg:py-36 relative select-none">
       
       {/* Curatorial Header */}
       <div className="flex flex-col gap-3 border-b border-[#C25934]/15 pb-8 mb-8">

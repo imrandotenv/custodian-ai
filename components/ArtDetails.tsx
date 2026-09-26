@@ -90,15 +90,15 @@ export default function ArtDetails() {
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-mono tracking-[0.3em] uppercase text-primary font-semibold">
-              ᱥᱟᱱᱛᱟᱲᱤ ᱟᱹᱨᱤᱪᱟᱹᱞᱤ
+              ᱥᱟᱱᱛᱟᱲᱤ ᱟᱹᱨᱤᱪᱟᱹᱞᱤ &middot; माटी घर
             </span>
             <span className="text-xs text-textPrimary/40">&middot;</span>
             <span className="text-xs text-textPrimary/70 font-sans">
-              {originHamlet} &middot; Indigenous Arc
+{originHamlet} &middot; Ramgarh Cantt, Hazaribagh &amp; Amadubi Indigenous Arc
             </span>
           </div>
           <span className="text-xs text-textPrimary/60">
-            Jharkhand &amp; West Bengal &middot; Living Sovereign Archive
+            Jharkhand Living Sovereign Archive &middot; 100% Earth Pigments
           </span>
         </div>
 

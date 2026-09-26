@@ -26,27 +26,32 @@ export default function GatekeeperLanding() {
     <div className="relative w-full h-screen h-[100dvh] overflow-hidden flex flex-col md:flex-row bg-[#141312] select-none">
       
       {/* Top Center Minimalist Brand Emblem */}
-      <header className="absolute top-6 sm:top-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none select-none">
+      <header className="absolute top-6 sm:top-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none select-none text-center">
         <div className="flex items-center gap-3">
           <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-          <span className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#F9F6F0] drop-shadow-md">
-            Mitti
-          </span>
+          <div className="flex items-baseline gap-2">
+            <span className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#F9F6F0] drop-shadow-md">
+              Maati Ghar
+            </span>
+            <span className="font-serif text-xl sm:text-2xl font-light text-[#C25934]">
+              माटी घर
+            </span>
+          </div>
           <span className="w-2 h-2 rounded-full bg-[#C25934]" />
         </div>
-        <span className="text-[10px] font-mono tracking-[0.4em] uppercase text-[#F9F6F0]/70 font-semibold mt-1">
-          Sovereign Tribal Living &middot; Dual Gatekeeper
+        <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-[#F9F6F0]/70 font-semibold mt-1">
+          Indigenous Arts &amp; Crafts &middot; Ramgarh Cantt, Jharkhand
         </span>
       </header>
 
       {/* Bottom Center Subtle Footer */}
       <footer className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 pointer-events-none select-none text-center">
-        <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-[#F9F6F0]/50 font-medium">
-          Indian Tribal Artistry &middot; Est. 2026
+        <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#F9F6F0]/50 font-medium">
+          From the Earth, For the Soul &middot; 100% Soil Pigments
         </span>
       </footer>
 
-      {/* LEFT HALF: The Tourist / Traveler (Dokra Metalcraft) */}
+      {/* LEFT HALF: The Tourist / Traveler (Dokra Metalcraft & Paitkar) */}
       <motion.section
         aria-label="Traveler Entrance"
         onMouseEnter={() => setHoveredSide("traveler")}
@@ -74,7 +79,7 @@ export default function GatekeeperLanding() {
           className="absolute inset-0 w-full h-full object-cover object-center select-none brightness-[0.85]"
         />
 
-        {/* Soft, Subtle Dark Gradient Overlay (Zero harsh red/orange, pure readability) */}
+        {/* Soft, Subtle Dark Gradient Overlay */}
         <div className="absolute inset-0 bg-black/40 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/40 pointer-events-none" />
 
@@ -92,7 +97,7 @@ export default function GatekeeperLanding() {
                 className="flex flex-col items-center text-center max-w-xl w-full overflow-hidden pointer-events-none"
               >
                 <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[10px] sm:text-[11px] font-mono tracking-[0.35em] uppercase text-[#F9F6F0] font-semibold mb-6 border border-white/20 shadow-lg">
-                  ETHICAL LIVING EXPLORATION
+                  MAATI GHAR ATELIER &bull; TRAVELER
                 </span>
 
                 <h2 className="font-serif text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-normal tracking-tight text-[#F9F6F0] leading-none mb-6 drop-shadow-2xl">
@@ -100,7 +105,7 @@ export default function GatekeeperLanding() {
                 </h2>
 
                 <p className="font-sans text-sm sm:text-base md:text-lg text-[#F9F6F0]/90 leading-relaxed font-light mb-8 max-w-md">
-                  Discover authentic Santhali heritage, participate in sacred ceramic kiln residencies, and pledge digital reverence before acquiring master tribal works.
+                  Discover authentic Sohrai wall plaques, ancient Paitkar scrolls, lost-wax Dhokra bronzes, and Ledra quilts made with 100% natural mud pigments.
                 </p>
 
                 <MagneticButton
@@ -108,12 +113,12 @@ export default function GatekeeperLanding() {
                   dataCursor="explore"
                   className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#F9F6F0] text-[#1C1A19] font-serif font-bold text-sm sm:text-base shadow-2xl hover:scale-105 transition-transform pointer-events-auto cursor-pointer"
                 >
-                  <span>Enter Cultural Sanctuary</span>
+                  <span>Enter Maati Ghar Atelier</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#C25934]" />
                 </MagneticButton>
 
                 <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-[#F9F6F0]/60 mt-4">
-                  Click to enter global gallery
+                  Click to explore handmade collections
                 </span>
               </motion.div>
             ) : hoveredSide === "custodian" ? (
@@ -131,11 +136,11 @@ export default function GatekeeperLanding() {
                   Traveler
                 </h2>
                 <span className="text-[10px] font-mono tracking-widest text-[#F9F6F0]/60 mt-3 uppercase">
-                  Portal 01
+                  Atelier
                 </span>
               </motion.div>
             ) : (
-              /* Idle State (50% Width): Massive, Centered Horizontal Typography */
+              /* Idle State (50% Width) */
               <motion.div
                 key="traveler-idle"
                 initial={{ opacity: 0, y: 10 }}
@@ -147,7 +152,7 @@ export default function GatekeeperLanding() {
                 <div className="flex items-center gap-2 mb-4 sm:mb-6">
                   <Compass className="w-4 h-4 text-[#F9F6F0]/80" />
                   <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.35em] uppercase text-[#F9F6F0]/80 font-semibold">
-                    PORTAL № 01
+                    THE ATELIER
                   </span>
                 </div>
 
@@ -157,7 +162,7 @@ export default function GatekeeperLanding() {
                 </h2>
 
                 <p className="font-sans text-xs sm:text-sm text-[#F9F6F0]/75 font-light mt-4 sm:mt-5 max-w-xs sm:max-w-sm line-clamp-2">
-                  Discover authentic Santhali heritage &amp; sacred residencies
+                  Discover authentic Sohrai, Paitkar scrolls, &amp; earthen decor
                 </p>
 
                 <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-[#F9F6F0]/50 mt-4 sm:mt-6">
@@ -169,7 +174,7 @@ export default function GatekeeperLanding() {
         </div>
       </motion.section>
 
-      {/* RIGHT HALF: The Custodian (Sohrai Mud Painting) */}
+      {/* RIGHT HALF: The Custodian (Sohrai Mud Painting & SHG Crafts) */}
       <motion.section
         aria-label="Custodian Entrance"
         onMouseEnter={() => setHoveredSide("custodian")}
@@ -197,7 +202,7 @@ export default function GatekeeperLanding() {
           className="absolute inset-0 w-full h-full object-cover object-center select-none brightness-[0.85]"
         />
 
-        {/* Soft, Subtle Dark Gradient Overlay (Zero harsh red/orange, pure readability) */}
+        {/* Soft, Subtle Dark Gradient Overlay */}
         <div className="absolute inset-0 bg-black/40 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/40 pointer-events-none" />
 
@@ -215,7 +220,7 @@ export default function GatekeeperLanding() {
                 className="flex flex-col items-center text-center max-w-xl w-full overflow-hidden pointer-events-none"
               >
                 <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[10px] sm:text-[11px] font-mono tracking-[0.35em] uppercase text-[#F9F6F0] font-semibold mb-6 border border-white/20 shadow-lg">
-                  SOVEREIGN ARTISAN SANCTUARY
+                  RURAL WOMEN &amp; ARTISAN SANCTUARY
                 </span>
 
                 <h2 className="font-serif text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-normal tracking-tight text-[#F9F6F0] leading-none mb-6 drop-shadow-2xl">
@@ -223,7 +228,7 @@ export default function GatekeeperLanding() {
                 </h2>
 
                 <p className="font-sans text-sm sm:text-base md:text-lg text-[#F9F6F0]/90 leading-relaxed font-light mb-8 max-w-md">
-                  Share your ancestral art on your own sovereign terms, enforce strict ritual consent protocols, and receive 100% direct bank payouts without commercial middlemen.
+                  Empowering rural women SHGs and tribal masters of Ramgarh, Hazaribagh, and Amadubi. Catalog handcrafted art, set fair prices, and receive direct 100% payouts.
                 </p>
 
                 <MagneticButton
@@ -254,11 +259,11 @@ export default function GatekeeperLanding() {
                   Custodian
                 </h2>
                 <span className="text-[10px] font-mono tracking-widest text-[#F9F6F0]/60 mt-3 uppercase">
-                  Portal 02
+                  Guild Hub
                 </span>
               </motion.div>
             ) : (
-              /* Idle State (50% Width): Massive, Centered Horizontal Typography */
+              /* Idle State (50% Width) */
               <motion.div
                 key="custodian-idle"
                 initial={{ opacity: 0, y: 10 }}
@@ -270,7 +275,7 @@ export default function GatekeeperLanding() {
                 <div className="flex items-center gap-2 mb-4 sm:mb-6">
                   <ShieldCheck className="w-4 h-4 text-[#F9F6F0]/80" />
                   <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.35em] uppercase text-[#F9F6F0]/80 font-semibold">
-                    PORTAL № 02
+                    ARTISAN GUILD
                   </span>
                 </div>
 

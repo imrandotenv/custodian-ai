@@ -10,16 +10,28 @@ export interface TextMarqueeProps {
 }
 
 const DEFAULT_MARQUEE_ITEMS = [
-  "CULTURE ON ITS OWN TERMS",
+  "MAATI GHAR",
   "✦",
-  "SANTHALI HERITAGE",
+  "माटी घर",
   "✦",
-  "DIGITAL SOVEREIGNTY",
+  "FROM THE EARTH, FOR THE SOUL",
+  "✦",
+  "SOHRAI & KHOVAR",
+  "✦",
+  "PAITKAR SCROLLS",
+  "✦",
+  "DHOKRA BRONZE",
+  "✦",
+  "LEDRA QUILTS",
+  "✦",
+  "RAMGARH CANTT &bull; JHARKHAND",
+  "✦",
+  "100% NATURAL SOIL PIGMENTS",
   "✦",
 ];
 
 export default function TextMarquee({
-  speed = 32,
+  speed = 36,
   className = "",
 }: TextMarqueeProps) {
   // Build cohesive repeating segment

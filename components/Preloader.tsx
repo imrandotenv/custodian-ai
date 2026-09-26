@@ -11,7 +11,7 @@ export default function Preloader() {
     () => () => {},
     () => {
       try {
-        return !!sessionStorage.getItem("mitti_preloader_shown") || hasLoadedInMemory;
+        return !!sessionStorage.getItem("maatighar_preloader_shown") || hasLoadedInMemory;
       } catch {
         return hasLoadedInMemory;
       }
@@ -44,7 +44,7 @@ export default function Preloader() {
           hasLoadedInMemory = true;
           document.body.style.overflow = "";
           try {
-            sessionStorage.setItem("mitti_preloader_shown", "true");
+            sessionStorage.setItem("maatighar_preloader_shown", "true");
           } catch {
             // Ignore storage errors
           }
@@ -56,7 +56,7 @@ export default function Preloader() {
       controls.stop();
       document.body.style.overflow = "";
     };
-  }, []);
+  }, [isAlreadyShown]);
 
   if (isAlreadyShown) return null;
 
@@ -64,7 +64,7 @@ export default function Preloader() {
     <AnimatePresence mode="wait">
       {isLoading && (
         <motion.div
-          key="mitti-preloader"
+          key="maatighar-preloader"
           initial={{ y: 0 }}
           exit={{
             y: "-100%",
@@ -75,12 +75,12 @@ export default function Preloader() {
           }}
           className="fixed inset-0 z-[9990] bg-[#F9F6F0] flex flex-col items-center justify-center select-none pointer-events-auto"
         >
-          {/* Subtle Ambient Watermark in Ol Chiki */}
+          {/* Subtle Ambient Watermark in Ol Chiki & Devanagari */}
           <div
             aria-hidden="true"
-            className="absolute text-[22vw] font-mono text-[#2C2A29]/[0.02] pointer-events-none select-none tracking-widest font-bold whitespace-nowrap"
+            className="absolute text-[16vw] font-mono text-[#2C2A29]/[0.025] pointer-events-none select-none tracking-widest font-bold whitespace-nowrap"
           >
-            ᱥᱟᱱᱛᱟᱲᱤ
+            माटी घर &middot; ᱥᱟᱱᱛᱟᱲᱤ
           </div>
 
           <div className="relative z-10 flex flex-col items-center text-center px-6">
@@ -93,19 +93,24 @@ export default function Preloader() {
             >
               <span className="w-2 h-2 rounded-full bg-[#C25934] animate-pulse" />
               <span className="text-[10px] sm:text-xs font-mono tracking-[0.35em] uppercase text-[#C25934] font-semibold">
-                ᱥᱟᱱᱛᱟᱲᱤ ᱟᱹᱨᱤᱪᱟᱹᱞᱤ &middot; HERITAGE GATEWAY
+                FROM THE EARTH, FOR THE SOUL &middot; JHARKHAND
               </span>
             </motion.div>
 
-            {/* Brand Title: 'Mitti' in Playfair Display */}
-            <motion.h1
+            {/* Brand Title: 'Maati Ghar' in Playfair Display with Devanagari */}
+            <motion.div
               initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-[#1A1A1A] leading-none"
+              className="flex flex-col items-center"
             >
-              Mitti
-            </motion.h1>
+              <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-[#1A1A1A] leading-none">
+                Maati Ghar
+              </h1>
+              <span className="font-serif text-2xl sm:text-3xl md:text-4xl text-[#C25934] mt-2">
+                माटी घर
+              </span>
+            </motion.div>
 
             {/* Minimal Thin Terracotta Progress Line */}
             <div className="w-48 sm:w-64 h-[1.5px] bg-[#1A1A1A]/10 relative overflow-hidden rounded-full mt-8 sm:mt-10">
@@ -117,7 +122,7 @@ export default function Preloader() {
 
             {/* Percentage & Status Counter */}
             <div className="flex items-center justify-between w-48 sm:w-64 mt-3 text-[10px] sm:text-[11px] font-mono tracking-widest text-[#C25934] font-semibold">
-              <span className="text-[#1A1A1A]/50 uppercase">Loading</span>
+              <span className="text-[#1A1A1A]/50 uppercase">Harvesting Mud</span>
               <span>{progress}%</span>
             </div>
           </div>
@@ -125,7 +130,7 @@ export default function Preloader() {
           {/* Bottom Minimalist Curatorial Tag */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center pointer-events-none">
             <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#1A1A1A]/40">
-              Indigenous Living &middot; Est. 2026
+              Ramgarh Cantt &bull; Hazaribagh &bull; Amadubi
             </span>
           </div>
         </motion.div>

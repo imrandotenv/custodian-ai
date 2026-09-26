@@ -19,6 +19,8 @@ import {
   ChevronDown,
   Check,
   UserCheck,
+  ShoppingBag,
+  Sparkles,
 } from "lucide-react";
 import CipherLink from "./CipherLink";
 
@@ -37,17 +39,19 @@ interface NavLinkItem {
 
 const ROLE_LINKS: Record<UserRole, NavLinkItem[]> = {
   tourist: [
-    { label: "Explore Arts", href: "/explore", icon: Compass },
-    { label: "My Cultural Trips", href: "/trips", icon: MapPin },
+    { label: "Traditions", href: "/explore", icon: Compass },
+    { label: "Atelier Collection", href: "/explore#collection", icon: ShoppingBag },
+    { label: "Living Map", href: "/explore#cultural-map", icon: MapPin },
+    { label: "Digital Pledge", href: "/explore#pledge-engine", icon: ShieldCheck },
   ],
   local: [
-    { label: "My Listings", href: "/listings", icon: PackageOpen },
-    { label: "Add New Art", href: "/add-art", icon: PlusCircle },
-    { label: "Earnings", href: "/earnings", icon: IndianRupee },
+    { label: "My Listings", href: "/dashboard", icon: PackageOpen },
+    { label: "Catalog Craft", href: "/add-art", icon: PlusCircle },
+    { label: "Earnings & Payouts", href: "/dashboard#earnings", icon: IndianRupee },
   ],
   admin: [
-    { label: "Verify Artisans", href: "/verify", icon: ShieldCheck },
-    { label: "Platform Analytics", href: "/analytics", icon: BarChart3 },
+    { label: "Verify Artisans", href: "/dashboard", icon: ShieldCheck },
+    { label: "Platform Analytics", href: "/dashboard", icon: BarChart3 },
   ],
 };
 
@@ -56,18 +60,18 @@ const ROLE_DETAILS: Record<
   { label: string; badge: string; description: string }
 > = {
   tourist: {
-    label: "Tourist",
-    badge: "Explorer",
-    description: "Discover crafts & cultural trails",
+    label: "Explorer",
+    badge: "Art Lover",
+    description: "Discover crafts, scrolls & cultural trails",
   },
   local: {
     label: "Local (Custodian)",
-    badge: "Artisan Custodian",
-    description: "Manage listings & verify sales",
+    badge: "Artisan Guild",
+    description: "Manage listings & verify direct sales",
   },
   admin: {
-    label: "Admin",
-    badge: "Superintendent",
+    label: "Superintendent",
+    badge: "Admin",
     description: "Artisan KYC & trust metrics",
   },
 };
@@ -142,23 +146,28 @@ export default function Navbar({ role, onRoleChange }: NavbarProps) {
         duration: 0.32,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className="fixed top-0 w-full z-[100] bg-[#F9F6F0]/60 backdrop-blur-xl border-b border-black/5"
+      className="fixed top-0 w-full z-[100] bg-[#F9F6F0]/80 backdrop-blur-xl border-b border-black/5"
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
         <div className="flex items-center justify-between h-20">
           
-          {/* Brand Logo - Playfair Display serif font */}
+          {/* Brand Logo - Playfair Display serif font with Maati Ghar Devanagari */}
           <Link href="/" className="flex items-center gap-3 group">
             {/* Handcrafted Terracotta Motif Icon */}
-            <div className="w-10 h-10 rounded-lg bg-[#C25934] text-[#F9F6F0] flex items-center justify-center font-serif text-lg font-bold shadow-sm group-hover:scale-105 transition-transform">
-              M
+            <div className="w-10 h-10 rounded-xl bg-[#C25934] text-[#F9F6F0] flex items-center justify-center font-serif text-lg font-bold shadow-xs group-hover:scale-105 transition-transform">
+              <span className="text-sm font-serif">मा</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-serif text-2xl font-bold tracking-tight text-[#1A1A1A] group-hover:text-[#C25934] transition-colors">
-                Mitti
-              </span>
-              <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-[#1A1A1A]/70">
-                Tribal Heritage
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#1A1A1A] group-hover:text-[#C25934] transition-colors">
+                  Maati Ghar
+                </span>
+                <span className="text-xs font-serif font-normal text-[#C25934]">
+                  माटी घर
+                </span>
+              </div>
+              <span className="text-[9px] tracking-[0.22em] uppercase font-semibold text-[#1A1A1A]/70">
+                From the Earth &bull; Jharkhand
               </span>
             </div>
           </Link>
@@ -174,7 +183,7 @@ export default function Navbar({ role, onRoleChange }: NavbarProps) {
                     icon={Icon}
                     onMouseEnter={() => setHoveredIdx(idx)}
                     onMouseLeave={() => setHoveredIdx(null)}
-                    className="relative px-4 py-2 text-sm font-medium text-[#1A1A1A] hover:text-[#C25934] transition-colors rounded-2xl inline-flex items-center gap-2 group z-10"
+                    className="relative px-3.5 py-2 text-sm font-medium text-[#1A1A1A] hover:text-[#C25934] transition-colors rounded-2xl inline-flex items-center gap-2 group z-10"
                   >
                     {link.label}
                   </CipherLink>
@@ -203,13 +212,13 @@ export default function Navbar({ role, onRoleChange }: NavbarProps) {
               <button
                 type="button"
                 onClick={() => setDropdownOpen((prev) => !prev)}
-                className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F9F6F0]/80 border border-[#C25934]/25 hover:border-[#C25934]/50 shadow-xs text-xs font-medium text-[#1A1A1A] hover:bg-[#F9F6F0] transition-all cursor-pointer"
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F9F6F0]/90 border border-[#C25934]/25 hover:border-[#C25934]/50 shadow-xs text-xs font-medium text-[#1A1A1A] hover:bg-[#F9F6F0] transition-all cursor-pointer"
                 aria-expanded={dropdownOpen}
                 aria-label="Toggle role switch demo menu"
               >
                 <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                 <span className="hidden sm:inline text-[#1A1A1A]/60 text-[11px] uppercase tracking-wider font-semibold">
-                  Demo RBAC:
+                  Role:
                 </span>
                 <span className="font-semibold text-[#C25934]">
                   {currentRoleInfo.label}
@@ -229,14 +238,14 @@ export default function Navbar({ role, onRoleChange }: NavbarProps) {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 4, scale: 0.97 }}
                     transition={{ duration: 0.15, ease: "easeOut" }}
-                    className="absolute right-0 mt-2 w-72 rounded-xl bg-[#F9F6F0] border border-[#C25934]/20 shadow-lg p-2 z-50 overflow-hidden"
+                    className="absolute right-0 mt-2 w-72 rounded-2xl bg-[#F9F6F0] border border-[#C25934]/20 shadow-xl p-2 z-50 overflow-hidden"
                   >
                     <div className="px-3 py-2 border-b border-[#C25934]/15 mb-1">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-[#C25934]">
-                        Switch Active Role (Demo)
+                        Switch Active Role
                       </p>
                       <p className="text-xs text-[#1A1A1A]/70 mt-0.5">
-                        Simulating authentication state for Round 1 judging.
+                        Experience Maati Ghar from different perspectives.
                       </p>
                     </div>
 
@@ -248,9 +257,9 @@ export default function Navbar({ role, onRoleChange }: NavbarProps) {
                           <button
                             key={r}
                             onClick={() => handleRoleSelect(r)}
-                            className={`w-full flex items-start justify-between px-3 py-2.5 rounded-lg text-left transition-colors cursor-pointer ${
+                            className={`w-full flex items-start justify-between px-3 py-2.5 rounded-xl text-left transition-colors cursor-pointer ${
                               isSelected
-                                ? "bg-[#F9F6F0] border border-[#C25934]/30 shadow-xs"
+                                ? "bg-white border border-[#C25934]/30 shadow-xs"
                                 : "hover:bg-[#C25934]/5"
                             }`}
                           >
@@ -283,7 +292,7 @@ export default function Navbar({ role, onRoleChange }: NavbarProps) {
 
                     <div className="mt-2 pt-2 border-t border-[#C25934]/10 px-3 py-1 flex items-center gap-1.5 text-[10px] text-[#1A1A1A]/60">
                       <UserCheck className="w-3 h-3 text-accent" />
-                      <span>Zero dark mode / Pure terracotta mud theme</span>
+                      <span>Maati Ghar &bull; Ramgarh Cantt, Jharkhand</span>
                     </div>
                   </motion.div>
                 )}
@@ -302,7 +311,7 @@ export default function Navbar({ role, onRoleChange }: NavbarProps) {
                 key={link.label}
                 href={link.href}
                 icon={Icon}
-                className="shrink-0 text-xs font-medium px-4 py-2 rounded-full bg-[#F9F6F0]/80 border border-[#C25934]/15 text-[#1A1A1A] hover:text-[#C25934] active:bg-[#C25934]/10 transition-colors shadow-2xs"
+                className="shrink-0 text-xs font-medium px-4 py-2 rounded-full bg-[#F9F6F0]/90 border border-[#C25934]/15 text-[#1A1A1A] hover:text-[#C25934] active:bg-[#C25934]/10 transition-colors shadow-2xs"
               >
                 {link.label}
               </CipherLink>
