@@ -3,15 +3,13 @@
 import React from "react";
 import Link from "next/link";
 import {
-  ArrowUp,
   MapPin,
   MessageCircle,
   Mail,
   ShieldCheck,
   Heart,
-  Palette,
-  Users,
-  ShoppingBag,
+  ArrowUp,
+  Phone,
 } from "lucide-react";
 
 export default function Footer() {
@@ -26,17 +24,17 @@ export default function Footer() {
     <footer className="w-full bg-[#1C1917] text-[#F9F6F0] pt-16 pb-12 px-4 sm:px-6 lg:px-8 border-t border-[#C25934]/30 select-none">
       <div className="max-w-7xl mx-auto flex flex-col gap-12">
         
-        {/* 1. TOP NEWSLETTER / WHATSAPP CONNECT BANNER */}
+        {/* 1. TOP ANNOUNCEMENT / WHATSAPP BANNER */}
         <div className="p-8 rounded-3xl bg-[#2A2624] border border-[#C25934]/30 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col gap-1 text-center md:text-left">
             <span className="text-xs font-mono text-[#E5A882] uppercase tracking-wider font-bold">
-              Stay Connected With Living Heritage
+              Customized, Bulk &amp; International Orders
             </span>
             <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white">
-              Support 15 Rural Artisan Families in Jharkhand
+              Connect Directly with Maati Ghar Atelier
             </h3>
             <p className="text-xs sm:text-sm text-white/70 max-w-xl font-sans mt-0.5">
-              Chat directly with our team in Ramgarh Cantt for bespoke mural commissions, wholesale inquiries, or custom tribal gifts.
+              Contact us for bespoke wall murals, handloom custom orders, or corporate handicraft gifting directly from Ramgarh Cantt.
             </p>
           </div>
 
@@ -44,17 +42,17 @@ export default function Footer() {
             href="https://wa.me/917260815628?text=Hello%20Maati%20Ghar,%20I%20would%20like%20to%20connect%20with%20your%20team%20in%20Ramgarh%20Cantt."
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3.5 rounded-2xl bg-[#C25934] text-white font-serif font-bold text-sm shadow-md hover:bg-[#A84724] transition-all flex items-center gap-2 shrink-0"
+            className="px-6 py-3.5 rounded-2xl bg-[#25D366] text-white font-serif font-bold text-sm shadow-md hover:bg-[#1ebd59] transition-all flex items-center gap-2 shrink-0"
           >
             <MessageCircle className="w-4 h-4" />
-            <span>Connect on WhatsApp (+91 72608 15628)</span>
+            <span>WhatsApp: +91 72608 15628</span>
           </a>
         </div>
 
-        {/* 2. MAIN 4-COLUMN FOOTER DIRECTORY */}
+        {/* 2. MAIN 4-COLUMN FOOTER DIRECTORY (Exact maatighar.com categories) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-sm">
           
-          {/* Column 1: Brand & Contact Ledger */}
+          {/* Column 1: Brand & Enterprise Profile */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-[#C25934] text-white flex items-center justify-center font-serif text-base font-bold">
@@ -65,13 +63,13 @@ export default function Footer() {
                   Maati Ghar
                 </span>
                 <span className="text-[10px] font-mono tracking-widest text-[#E5A882] uppercase">
-                  माटी घर &bull; Ramgarh Cantt
+                  Authentic &bull; Traditional &bull; Artisanal
                 </span>
               </div>
             </div>
 
             <p className="text-xs text-white/75 font-sans leading-relaxed">
-              A grassroots social enterprise celebrating Jharkhand&apos;s indigenous tribal arts, organic earthen crafts, and rural women Self-Help Groups (SHGs). 100% natural earth pigments, zero toxic chemicals, and direct fair-trade remuneration.
+              Maati Ghar is a brand of <strong>Maati Ghar Arts and Crafts</strong>, a social enterprise by Virendra Kumar based in Ramgarh Cantt, Jharkhand. Dedicated to preserving authentic Sohrai, Khovar, Paitkar, and Jadopatia paintings alongside handcrafted tribal lifestyle goods.
             </p>
 
             <div className="flex flex-col gap-2 text-xs font-mono text-white/80 pt-1">
@@ -80,7 +78,7 @@ export default function Footer() {
                 <span>Gola Road, Bazar Tand, Ramgarh Cantt, Jharkhand - 829122</span>
               </div>
               <div className="flex items-center gap-2">
-                <MessageCircle className="w-4 h-4 text-[#C25934] shrink-0" />
+                <Phone className="w-4 h-4 text-[#C25934] shrink-0" />
                 <a
                   href="https://wa.me/917260815628"
                   target="_blank"
@@ -99,137 +97,148 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Indigenous Crafts */}
+          {/* Column 2: Traditional Paintings */}
           <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#E5A882] font-bold">
-              Tribal Art Forms
-            </span>
-            <Link
-              href="/#collection"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Sohrai Mud Painting (Hazaribagh)
-            </Link>
-            <Link
-              href="/#collection"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Dokra Lost-Wax Metallurgy (Purulia)
-            </Link>
-            <Link
-              href="/#collection"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Santhali Handloom (Dumka &amp; Pakur)
-            </Link>
-            <Link
-              href="/#collection"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Santhali Bamboo Craft (Jhargram)
-            </Link>
-            <Link
-              href="/#collection"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Santhali Needle Embroidery (Malda)
-            </Link>
-            <Link
-              href="/#murals"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Bespoke Architectural Murals
-            </Link>
+            <h4 className="font-serif font-bold text-base text-white border-b border-white/10 pb-2">
+              Traditional Paintings
+            </h4>
+            <ul className="flex flex-col gap-2 text-xs font-sans text-white/70">
+              <li>
+                <Link
+                  href="/shop?category=sohrai-paintings"
+                  className="hover:text-[#E5A882] transition-colors"
+                >
+                  Sohrai Paintings of Jharkhand
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/shop?category=khovar-paintings"
+                  className="hover:text-[#E5A882] transition-colors"
+                >
+                  Khovar Bridal Murals
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/shop?category=paitkar-paintings"
+                  className="hover:text-[#E5A882] transition-colors"
+                >
+                  Paitkar Ancient Scroll Art
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/shop?category=jadopatia-paintings"
+                  className="hover:text-[#E5A882] transition-colors"
+                >
+                  Jadopatia (Jadupatua) Paintings
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/shop?category=sohrai-paintings"
+                  className="hover:text-[#E5A882] transition-colors"
+                >
+                  Exclusive Sohrai Murals (Putli Ganju)
+                </Link>
+              </li>
+            </ul>
           </div>
 
-          {/* Column 3: Quick Navigation */}
+          {/* Column 3: Handicrafts & Policy */}
           <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#E5A882] font-bold">
-              Explore &amp; Portals
-            </span>
-            <Link
-              href="/"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="/#collection"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Shop Collection (15 Artworks)
-            </Link>
-            <Link
-              href="/#artisans"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Our 15 Living Artisans
-            </Link>
-            <Link
-              href="/#map"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Topography of Living Ateliers
-            </Link>
-            <Link
-              href="/#murals"
-              className="text-xs sm:text-sm text-white/80 hover:text-[#E5A882] transition-colors"
-            >
-              Commission Custom Mural
-            </Link>
-            <Link
-              href="/dashboard"
-              className="text-xs sm:text-sm text-[#849A89] hover:underline font-semibold"
-            >
-              Artisan Custodian Portal &rarr;
-            </Link>
+            <h4 className="font-serif font-bold text-base text-white border-b border-white/10 pb-2">
+              Handicrafts &amp; Store
+            </h4>
+            <ul className="flex flex-col gap-2 text-xs font-sans text-white/70">
+              <li>
+                <Link
+                  href="/shop?category=hand-painted"
+                  className="hover:text-[#E5A882] transition-colors"
+                >
+                  Hand-painted Home Products
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/shop?category=dhokra"
+                  className="hover:text-[#E5A882] transition-colors"
+                >
+                  Dhokra Metal Art (Lost-Wax)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/shop?category=ledra-textile"
+                  className="hover:text-[#E5A882] transition-colors"
+                >
+                  Ledra Textile Art of Jharkhand
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="hover:text-[#E5A882] transition-colors"
+                >
+                  About Maati Ghar
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="hover:text-[#E5A882] transition-colors"
+                >
+                  Custom Murals &amp; Bulk Orders
+                </Link>
+              </li>
+            </ul>
           </div>
 
-          {/* Column 4: Principles & GI Protection */}
+          {/* Column 4: Customer Care & Ethics */}
           <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#E5A882] font-bold">
-              Our Principles
-            </span>
-            <div className="flex items-center gap-2 text-xs text-white/80">
-              <ShieldCheck className="w-4 h-4 text-[#C25934] shrink-0" />
-              <span>GI Tag #JH-SOHRAI-2020</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-white/80">
-              <Heart className="w-4 h-4 text-[#C25934] shrink-0" />
-              <span>90% Direct Artisan Payout</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-white/80">
-              <Palette className="w-4 h-4 text-[#C25934] shrink-0" />
-              <span>100% Earthen Soil Colors</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-white/80">
-              <Users className="w-4 h-4 text-[#C25934] shrink-0" />
-              <span>Rural Women SHG Empowerment</span>
-            </div>
+            <h4 className="font-serif font-bold text-base text-white border-b border-white/10 pb-2">
+              Our Sovereign Pledge
+            </h4>
+            <ul className="flex flex-col gap-2 text-xs font-sans text-white/70">
+              <li className="flex items-center gap-1.5 text-white/90 font-medium">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#E5A882]" />
+                <span>90% Direct Artisan Remuneration</span>
+              </li>
+              <li className="flex items-center gap-1.5 text-white/90 font-medium">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#E5A882]" />
+                <span>100% Natural Earth Clays &amp; Ochres</span>
+              </li>
+              <li className="flex items-center gap-1.5 text-white/90 font-medium">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#E5A882]" />
+                <span>GI Certified #JH-SOHRAI-2020</span>
+              </li>
+              <li className="flex items-center gap-1.5 text-white/90 font-medium">
+                <Heart className="w-3.5 h-3.5 text-[#E5A882]" />
+                <span>Women SHG Economic Empowerment</span>
+              </li>
+            </ul>
 
-            <div className="mt-3 p-3 rounded-2xl bg-[#2A2624] border border-white/10 text-[11px] text-white/70">
-              &ldquo;When you acquire a piece from Maati Ghar, you support an unbroken lineage of forest songs, sacred mud, and sovereign rural self-reliance.&rdquo;
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={scrollToTop}
+                className="inline-flex items-center gap-2 text-xs font-mono text-white/60 hover:text-white transition-colors cursor-pointer"
+              >
+                <ArrowUp className="w-3.5 h-3.5" />
+                <span>Back to top</span>
+              </button>
             </div>
           </div>
 
         </div>
 
-        {/* 3. BOTTOM MINIMALIST COPYRIGHT & BACK TO TOP */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/60">
-          <div className="flex items-center gap-2 text-center sm:text-left">
-            <span>&copy; {new Date().getFullYear()} MAATI GHAR (माटी घर)</span>
-            <span>&bull;</span>
-            <span>RAMGARH CANTT, JHARKHAND - 829122</span>
+        {/* 3. COPYRIGHT & LEGAL BOTTOM STRIP */}
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50 font-sans">
+          <span>&copy; 2026 Maati Ghar Arts and Crafts. All rights reserved.</span>
+          <div className="flex items-center gap-4 text-[11px] font-mono text-[#E5A882]">
+            <span>Ramgarh Cantt &bull; Hazaribagh &bull; Dumka &bull; Purulia</span>
           </div>
-
-          <button
-            type="button"
-            onClick={scrollToTop}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/10 hover:bg-[#C25934] hover:text-white transition-all text-xs font-bold cursor-pointer"
-          >
-            <span>BACK TO TOP</span>
-            <ArrowUp className="w-3.5 h-3.5" />
-          </button>
         </div>
 
       </div>

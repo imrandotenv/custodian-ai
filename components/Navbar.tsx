@@ -2,25 +2,21 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
-  Compass,
-  MapPin,
-  PackageOpen,
-  PlusCircle,
-  IndianRupee,
-  ShieldCheck,
-  BarChart3,
-  ChevronDown,
-  Check,
-  UserCheck,
   ShoppingBag,
-  Sparkles,
   MessageCircle,
   Menu,
   X,
-  Palette,
+  ChevronDown,
+  Search,
   Users,
+  ShieldCheck,
+  MapPin,
+  Sparkles,
 } from "lucide-react";
+import { useCart } from "./CartContext";
+import { MAATIGHAR_CATEGORIES } from "@/lib/maatiGharProducts";
 
 export type UserRole = "tourist" | "local" | "admin";
 
@@ -51,19 +47,36 @@ const ROLE_DETAILS: Record<
 };
 
 export default function Navbar({ role, onRoleChange }: NavbarProps) {
+  const pathname = usePathname();
+  const { cartCount, setIsCartOpen } = useCart();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [shopMenuOpen, setShopMenuOpen] = useState(false);
+  const [paintingsMenuOpen, setPaintingsMenuOpen] = useState(false);
+  const [aboutMenuOpen, setAboutMenuOpen] = useState(false);
 
-  const currentRoleInfo = ROLE_DETAILS[role];
+  const shopDropdownRef = useRef<HTMLDivElement>(null);
+  const paintingsDropdownRef = useRef<HTMLDivElement>(null);
+  const aboutDropdownRef = useRef<HTMLDivElement>(null);
+  const roleDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown on outside click
+  // Close dropdowns on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Node;
+      if (shopDropdownRef.current && !shopDropdownRef.current.contains(target)) {
+        setShopMenuOpen(false);
+      }
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        paintingsDropdownRef.current &&
+        !paintingsDropdownRef.current.contains(target)
       ) {
+        setPaintingsMenuOpen(false);
+      }
+      if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(target)) {
+        setAboutMenuOpen(false);
+      }
+      if (roleDropdownRef.current && !roleDropdownRef.current.contains(target)) {
         setDropdownOpen(false);
       }
     }
@@ -71,285 +84,405 @@ export default function Navbar({ role, onRoleChange }: NavbarProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Close mobile drawer on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setShopMenuOpen(false);
+    setPaintingsMenuOpen(false);
+    setAboutMenuOpen(false);
+  }, [pathname]);
+
   const handleRoleSelect = (newRole: UserRole) => {
-    if (onRoleChange) {
-      onRoleChange(newRole);
-    }
+    if (onRoleChange) onRoleChange(newRole);
     setDropdownOpen(false);
     setMobileMenuOpen(false);
   };
 
+  const currentRoleInfo = ROLE_DETAILS[role];
+
   return (
-    <header className="sticky top-0 w-full z-50 bg-[#F9F6F0]/95 backdrop-blur-md border-b border-[#C25934]/15 shadow-2xs">
-      
-      {/* 1. TOP ANNOUNCEMENT BAR (maatighar.com style) */}
+    <header className="sticky top-0 w-full z-50 bg-[#FBF9F5]/95 backdrop-blur-md border-b border-[#C25934]/15 shadow-2xs select-none">
+      {/* 1. TOP ANNOUNCEMENT BANNER (Exact text from maatighar.com) */}
       <div className="w-full bg-[#C25934] text-[#F9F6F0] py-1.5 px-4 text-center text-xs font-sans font-medium flex items-center justify-between sm:justify-center gap-4">
         <span className="truncate">
-          🌱 100% Natural Earth Colors &bull; Direct from Ramgarh Cantt Artisans &bull; 90% Direct Remuneration
+          For customized, bulk, and international orders, please contact us via WhatsApp on{" "}
+          <strong className="underline">+91-7260815628</strong> or Email at{" "}
+          <strong className="underline">maatikaghar@gmail.com</strong>
         </span>
         <a
-          href="https://wa.me/917260815628?text=Hello%20Maati%20Ghar,%20I%20want%20to%20know%20more%20about%20your%20tribal%20artworks."
+          href="https://wa.me/917260815628?text=Hello%20Maati%20Ghar,%20I%20want%20to%20place%20a%20bulk%20order."
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden md:inline-flex items-center gap-1.5 underline text-white font-semibold text-[11px] hover:text-[#FAF6EE]"
+          className="hidden md:inline-flex items-center gap-1 text-[11px] font-bold text-white bg-black/15 px-2.5 py-0.5 rounded-full hover:bg-black/25 transition-colors"
         >
-          <MessageCircle className="w-3.5 h-3.5" />
-          <span>WhatsApp: +91 72608 15628</span>
+          <MessageCircle className="w-3 h-3" />
+          <span>WhatsApp Chat</span>
         </a>
       </div>
 
-      {/* 2. MAIN HEADER NAVIGATION BAR */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          
-          {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-2xl bg-[#C25934] text-[#F9F6F0] flex items-center justify-center font-serif text-xl font-bold shadow-xs group-hover:scale-105 transition-transform">
-              <span>मा</span>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#1A1A1A] group-hover:text-[#C25934] transition-colors">
-                  Maati Ghar
-                </span>
-                <span className="font-serif text-sm font-normal text-[#C25934]">
-                  माटी घर
-                </span>
-              </div>
-              <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-[#1A1A1A]/70">
-                From the Earth, For the Soul &bull; Ramgarh Cantt
-              </span>
-            </div>
+      {/* 2. MAIN BRAND HEADER & NAVIGATION BAR */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-6">
+        
+        {/* Brand Logo & Tagline (Exact maatighar.com style) */}
+        <Link href="/" className="flex items-center gap-3 shrink-0 group">
+          <div className="w-10 h-10 rounded-xl bg-[#C25934] text-white flex items-center justify-center font-serif text-xl font-bold shadow-xs group-hover:scale-105 transition-transform">
+            मा
+          </div>
+          <div className="flex flex-col">
+            <span className="font-serif text-2xl font-bold tracking-tight text-[#1A1A1A]">
+              Maati Ghar
+            </span>
+            <span className="text-[9.5px] font-mono tracking-[0.25em] text-[#C25934] uppercase font-semibold">
+              Authentic &bull; Traditional &bull; Artisanal
+            </span>
+          </div>
+        </Link>
+
+        {/* Desktop Navigation Links with Dropdowns */}
+        <nav className="hidden lg:flex items-center gap-6 text-[13px] font-sans font-medium text-[#1A1A1A]/85">
+          <Link
+            href="/"
+            className={`hover:text-[#C25934] transition-colors py-1 ${
+              pathname === "/" ? "text-[#C25934] font-bold" : ""
+            }`}
+          >
+            Home
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#1A1A1A]">
+          {/* Shop Dropdown */}
+          <div ref={shopDropdownRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setShopMenuOpen(!shopMenuOpen)}
+              className="flex items-center gap-1 hover:text-[#C25934] transition-colors py-1 cursor-pointer"
+            >
+              <span>Shop</span>
+              <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+            </button>
+
+            {shopMenuOpen && (
+              <div className="absolute top-full left-0 mt-2 w-64 rounded-2xl bg-white border border-[#C25934]/20 shadow-xl p-2 z-50 flex flex-col gap-1">
+                <Link
+                  href="/shop"
+                  onClick={() => setShopMenuOpen(false)}
+                  className="px-3 py-2 rounded-xl text-xs hover:bg-[#F9F6F0] hover:text-[#C25934] transition-colors font-semibold"
+                >
+                  All Products
+                </Link>
+                <div className="h-[1px] bg-black/5 my-1" />
+                {MAATIGHAR_CATEGORIES.map((cat) => (
+                  <Link
+                    key={cat.key}
+                    href={cat.link}
+                    onClick={() => setShopMenuOpen(false)}
+                    className="px-3 py-1.5 rounded-xl text-xs hover:bg-[#F9F6F0] hover:text-[#C25934] transition-colors text-[#1A1A1A]/80"
+                  >
+                    {cat.title}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Paintings Dropdown */}
+          <div ref={paintingsDropdownRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setPaintingsMenuOpen(!paintingsMenuOpen)}
+              className="flex items-center gap-1 hover:text-[#C25934] transition-colors py-1 cursor-pointer"
+            >
+              <span>Paintings</span>
+              <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+            </button>
+
+            {paintingsMenuOpen && (
+              <div className="absolute top-full left-0 mt-2 w-56 rounded-2xl bg-white border border-[#C25934]/20 shadow-xl p-2 z-50 flex flex-col gap-1">
+                <Link
+                  href="/shop?category=sohrai-paintings"
+                  onClick={() => setPaintingsMenuOpen(false)}
+                  className="px-3 py-1.5 rounded-xl text-xs hover:bg-[#F9F6F0] hover:text-[#C25934] transition-colors"
+                >
+                  Sohrai Paintings
+                </Link>
+                <Link
+                  href="/shop?category=khovar-paintings"
+                  onClick={() => setPaintingsMenuOpen(false)}
+                  className="px-3 py-1.5 rounded-xl text-xs hover:bg-[#F9F6F0] hover:text-[#C25934] transition-colors"
+                >
+                  Khovar Paintings
+                </Link>
+                <Link
+                  href="/shop?category=paitkar-paintings"
+                  onClick={() => setPaintingsMenuOpen(false)}
+                  className="px-3 py-1.5 rounded-xl text-xs hover:bg-[#F9F6F0] hover:text-[#C25934] transition-colors"
+                >
+                  Paitkar Paintings
+                </Link>
+                <Link
+                  href="/shop?category=jadopatia-paintings"
+                  onClick={() => setPaintingsMenuOpen(false)}
+                  className="px-3 py-1.5 rounded-xl text-xs hover:bg-[#F9F6F0] hover:text-[#C25934] transition-colors"
+                >
+                  Jadopatia Paintings
+                </Link>
+              </div>
+            )}
+          </div>
+
+          <Link
+            href="/shop?category=hand-painted"
+            className="hover:text-[#C25934] transition-colors py-1"
+          >
+            Hand-painted Products
+          </Link>
+
+          <Link
+            href="/shop?category=dhokra"
+            className="hover:text-[#C25934] transition-colors py-1"
+          >
+            Dhokra Metal Art
+          </Link>
+
+          <Link
+            href="/shop?category=ledra-textile"
+            className="hover:text-[#C25934] transition-colors py-1"
+          >
+            Ledra Textile Art
+          </Link>
+
+          {/* About Dropdown */}
+          <div ref={aboutDropdownRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setAboutMenuOpen(!aboutMenuOpen)}
+              className="flex items-center gap-1 hover:text-[#C25934] transition-colors py-1 cursor-pointer"
+            >
+              <span>About</span>
+              <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+            </button>
+
+            {aboutDropdownRef && aboutMenuOpen && (
+              <div className="absolute top-full left-0 mt-2 w-56 rounded-2xl bg-white border border-[#C25934]/20 shadow-xl p-2 z-50 flex flex-col gap-1">
+                <Link
+                  href="/about"
+                  onClick={() => setAboutMenuOpen(false)}
+                  className="px-3 py-1.5 rounded-xl text-xs hover:bg-[#F9F6F0] hover:text-[#C25934] transition-colors font-semibold"
+                >
+                  About Maati Ghar
+                </Link>
+                <Link
+                  href="/#artisans"
+                  onClick={() => setAboutMenuOpen(false)}
+                  className="px-3 py-1.5 rounded-xl text-xs hover:bg-[#F9F6F0] hover:text-[#C25934] transition-colors"
+                >
+                  Our 15 Living Artisans
+                </Link>
+                <Link
+                  href="/#map"
+                  onClick={() => setAboutMenuOpen(false)}
+                  className="px-3 py-1.5 rounded-xl text-xs hover:bg-[#F9F6F0] hover:text-[#C25934] transition-colors"
+                >
+                  Topography of Ateliers
+                </Link>
+              </div>
+            )}
+          </div>
+
+          <Link
+            href="/contact"
+            className={`hover:text-[#C25934] transition-colors py-1 ${
+              pathname === "/contact" ? "text-[#C25934] font-bold" : ""
+            }`}
+          >
+            Contact
+          </Link>
+        </nav>
+
+        {/* Right Actions: Role Switcher, Cart, WhatsApp & Mobile Menu */}
+        <div className="flex items-center gap-3">
+          
+          {/* Role Switcher Dropdown (Custodian AI feature) */}
+          <div ref={roleDropdownRef} className="relative hidden sm:block">
+            <button
+              type="button"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-[#C25934]/25 text-xs font-mono font-medium hover:border-[#C25934] transition-colors cursor-pointer"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#4A6B53]" />
+              <span className="text-[#1A1A1A] font-semibold">{currentRoleInfo.badge}</span>
+              <ChevronDown className="w-3 h-3 text-[#1A1A1A]/60" />
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white border border-[#C25934]/20 shadow-xl p-2 z-50 flex flex-col gap-1">
+                {(["tourist", "local", "admin"] as UserRole[]).map((r) => (
+                  <button
+                    key={r}
+                    type="button"
+                    onClick={() => handleRoleSelect(r)}
+                    className={`p-2.5 rounded-xl text-left flex flex-col transition-colors cursor-pointer ${
+                      role === r
+                        ? "bg-[#C25934]/10 border border-[#C25934]/30"
+                        : "hover:bg-[#F9F6F0]"
+                    }`}
+                  >
+                    <span className="font-serif font-bold text-xs text-[#1A1A1A]">
+                      {ROLE_DETAILS[r].label}
+                    </span>
+                    <span className="text-[10px] text-[#1A1A1A]/60 font-sans">
+                      {ROLE_DETAILS[r].description}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* WhatsApp Direct CTA */}
+          <a
+            href="https://wa.me/917260815628?text=Hello%20Maati%20Ghar,%20I%20am%20interested%20in%20Jharkhand%20tribal%20art."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#25D366] text-white font-serif font-bold text-xs hover:bg-[#1ebd59] transition-colors shadow-2xs"
+            title="Chat on WhatsApp"
+          >
+            <MessageCircle className="w-3.5 h-3.5" />
+            <span className="hidden md:inline">WhatsApp</span>
+          </a>
+
+          {/* Cart Icon with Real-Time Counter */}
+          <button
+            type="button"
+            onClick={() => setIsCartOpen(true)}
+            className="relative p-2.5 rounded-xl bg-white border border-[#C25934]/25 hover:border-[#C25934] transition-colors text-[#1A1A1A] cursor-pointer flex items-center gap-1.5"
+            aria-label="Open Shopping Cart"
+          >
+            <ShoppingBag className="w-4 h-4 text-[#C25934]" />
+            <span className="text-xs font-serif font-bold hidden sm:inline">Cart</span>
+            {cartCount > 0 && (
+              <span className="px-1.5 py-0.5 rounded-full bg-[#C25934] text-white text-[10px] font-mono font-bold leading-none">
+                {cartCount}
+              </span>
+            )}
+          </button>
+
+          {/* Mobile Hamburger Toggle */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-xl bg-white border border-[#C25934]/25 hover:border-[#C25934] transition-colors text-[#1A1A1A] cursor-pointer"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+
+        </div>
+
+      </div>
+
+      {/* 3. MOBILE RESPONSIVE DRAWER */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden w-full bg-white border-b border-[#C25934]/20 p-5 flex flex-col gap-4 shadow-xl">
+          <nav className="flex flex-col gap-2 text-sm font-sans">
             <Link
               href="/"
-              className="hover:text-[#C25934] transition-colors py-1 hover:border-b-2 hover:border-[#C25934]"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0] font-bold text-[#C25934]"
             >
               Home
             </Link>
             <Link
-              href="/#collection"
-              className="hover:text-[#C25934] transition-colors py-1 hover:border-b-2 hover:border-[#C25934] flex items-center gap-1"
+              href="/shop"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0]"
             >
-              <ShoppingBag className="w-4 h-4 text-[#C25934]" />
-              <span>Shop Collection</span>
+              Shop All Products
+            </Link>
+            <Link
+              href="/shop?category=hand-painted"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0] pl-6 text-xs text-[#1A1A1A]/80"
+            >
+              &bull; Hand-painted Products
+            </Link>
+            <Link
+              href="/shop?category=sohrai-paintings"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0] pl-6 text-xs text-[#1A1A1A]/80"
+            >
+              &bull; Sohrai Paintings
+            </Link>
+            <Link
+              href="/shop?category=khovar-paintings"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0] pl-6 text-xs text-[#1A1A1A]/80"
+            >
+              &bull; Khovar Paintings
+            </Link>
+            <Link
+              href="/shop?category=paitkar-paintings"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0] pl-6 text-xs text-[#1A1A1A]/80"
+            >
+              &bull; Paitkar Paintings
+            </Link>
+            <Link
+              href="/shop?category=jadopatia-paintings"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0] pl-6 text-xs text-[#1A1A1A]/80"
+            >
+              &bull; Jadopatia Paintings
+            </Link>
+            <Link
+              href="/shop?category=dhokra"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0] pl-6 text-xs text-[#1A1A1A]/80"
+            >
+              &bull; Dhokra Metal Art
+            </Link>
+            <Link
+              href="/shop?category=ledra-textile"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0] pl-6 text-xs text-[#1A1A1A]/80"
+            >
+              &bull; Ledra Textile Art
+            </Link>
+            <Link
+              href="/about"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0]"
+            >
+              About Maati Ghar
             </Link>
             <Link
               href="/#artisans"
-              className="hover:text-[#C25934] transition-colors py-1 hover:border-b-2 hover:border-[#C25934] flex items-center gap-1"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0]"
             >
-              <Users className="w-4 h-4 text-[#C25934]" />
-              <span>Our Artisans</span>
+              Our 15 Artisans
             </Link>
             <Link
-              href="/#pigments"
-              className="hover:text-[#C25934] transition-colors py-1 hover:border-b-2 hover:border-[#C25934] flex items-center gap-1"
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 px-3 rounded-xl hover:bg-[#F9F6F0]"
             >
-              <Palette className="w-4 h-4 text-[#C25934]" />
-              <span>Earth Pigments</span>
-            </Link>
-            <Link
-              href="/#map"
-              className="hover:text-[#C25934] transition-colors py-1 hover:border-b-2 hover:border-[#C25934] flex items-center gap-1"
-            >
-              <MapPin className="w-4 h-4 text-[#C25934]" />
-              <span>Living Map</span>
-            </Link>
-            <Link
-              href="/#murals"
-              className="hover:text-[#C25934] transition-colors py-1 hover:border-b-2 hover:border-[#C25934]"
-            >
-              Custom Murals
-            </Link>
-            <Link
-              href="/dashboard"
-              className="hover:text-[#C25934] transition-colors py-1 text-accent font-semibold"
-            >
-              Artisan Portal
+              Contact Us
             </Link>
           </nav>
 
-          {/* Right Section: WhatsApp Button & Role Switcher */}
-          <div className="flex items-center gap-3">
-            
-            {/* Quick WhatsApp Inquiry Button */}
+          <div className="pt-3 border-t border-[#C25934]/15 flex flex-col gap-2">
             <a
-              href="https://wa.me/917260815628?text=Hello%20Maati%20Ghar,%20I%20am%20interested%20in%20Jharkhand%20tribal%20artworks."
+              href="https://wa.me/917260815628?text=Hello%20Maati%20Ghar,%20I%20am%20visiting%20from%20mobile."
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C25934] text-[#F9F6F0] text-xs font-serif font-bold shadow-xs hover:opacity-90 transition-opacity"
+              className="w-full py-2.5 rounded-xl bg-[#25D366] text-white font-serif font-bold text-xs flex items-center justify-center gap-2"
             >
               <MessageCircle className="w-4 h-4" />
-              <span>WhatsApp Us</span>
+              <span>WhatsApp Direct (+91 72608 15628)</span>
             </a>
-
-            {/* Role Switcher Dropdown */}
-            <div className="relative" ref={dropdownRef}>
-              <button
-                type="button"
-                onClick={() => setDropdownOpen((prev) => !prev)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#C25934]/30 hover:border-[#C25934] shadow-xs text-xs font-medium text-[#1A1A1A] transition-all cursor-pointer"
-                aria-expanded={dropdownOpen}
-                aria-label="Toggle user role menu"
-              >
-                <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                <span className="hidden xl:inline text-[#1A1A1A]/60 text-[11px] uppercase tracking-wider font-semibold">
-                  Mode:
-                </span>
-                <span className="font-semibold text-[#C25934]">
-                  {currentRoleInfo.label.split(" ")[0]}
-                </span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 text-[#1A1A1A]/60 transition-transform duration-200 ${
-                    dropdownOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-72 rounded-2xl bg-white border border-[#C25934]/20 shadow-xl p-2 z-50 overflow-hidden">
-                  <div className="px-3 py-2 border-b border-[#C25934]/15 mb-1">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#C25934]">
-                      Select View Mode
-                    </p>
-                    <p className="text-xs text-[#1A1A1A]/70 mt-0.5">
-                      Switch between customer and artisan custodian perspectives.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col gap-1">
-                    {(["tourist", "local", "admin"] as UserRole[]).map((r) => {
-                      const isSelected = role === r;
-                      const item = ROLE_DETAILS[r];
-                      return (
-                        <button
-                          key={r}
-                          onClick={() => handleRoleSelect(r)}
-                          className={`w-full flex items-start justify-between px-3 py-2 rounded-xl text-left transition-colors cursor-pointer ${
-                            isSelected
-                              ? "bg-[#F9F6F0] border border-[#C25934]/30 shadow-xs"
-                              : "hover:bg-[#C25934]/5"
-                          }`}
-                        >
-                          <div className="flex flex-col">
-                            <div className="flex items-center gap-2">
-                              <span
-                                className={`text-xs font-semibold ${
-                                  isSelected ? "text-[#C25934]" : "text-[#1A1A1A]"
-                                }`}
-                              >
-                                {item.label}
-                              </span>
-                              <span className="text-[9px] px-1.5 py-0.5 rounded bg-accent/15 text-accent font-medium">
-                                {item.badge}
-                              </span>
-                            </div>
-                            <span className="text-[11px] text-[#1A1A1A]/70 mt-0.5">
-                              {item.description}
-                            </span>
-                          </div>
-                          {isSelected && (
-                            <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" />
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Mobile Hamburger Toggle Button */}
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="lg:hidden p-2 rounded-xl border border-[#C25934]/20 bg-white text-[#1A1A1A] hover:bg-[#F9F6F0] transition-colors"
-              aria-label="Toggle mobile navigation menu"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-
           </div>
-
-        </div>
-      </div>
-
-      {/* 3. MOBILE RESPONSIVE DRAWER MENU */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-[#C25934]/15 px-4 pt-3 pb-6 flex flex-col gap-3 shadow-lg">
-          <Link
-            href="/"
-            onClick={() => setMobileMenuOpen(false)}
-            className="px-3 py-2 rounded-xl text-sm font-medium text-[#1A1A1A] hover:bg-[#F9F6F0] hover:text-[#C25934]"
-          >
-            Home
-          </Link>
-          <Link
-            href="/#collection"
-            onClick={() => setMobileMenuOpen(false)}
-            className="px-3 py-2 rounded-xl text-sm font-medium text-[#1A1A1A] hover:bg-[#F9F6F0] hover:text-[#C25934] flex items-center gap-2"
-          >
-            <ShoppingBag className="w-4 h-4 text-[#C25934]" />
-            <span>Shop Collection (15 Artworks)</span>
-          </Link>
-          <Link
-            href="/#artisans"
-            onClick={() => setMobileMenuOpen(false)}
-            className="px-3 py-2 rounded-xl text-sm font-medium text-[#1A1A1A] hover:bg-[#F9F6F0] hover:text-[#C25934] flex items-center gap-2"
-          >
-            <Users className="w-4 h-4 text-[#C25934]" />
-            <span>Our 15 Artisans</span>
-          </Link>
-          <Link
-            href="/#pigments"
-            onClick={() => setMobileMenuOpen(false)}
-            className="px-3 py-2 rounded-xl text-sm font-medium text-[#1A1A1A] hover:bg-[#F9F6F0] hover:text-[#C25934] flex items-center gap-2"
-          >
-            <Palette className="w-4 h-4 text-[#C25934]" />
-            <span>Sacred Earth Pigments</span>
-          </Link>
-          <Link
-            href="/#map"
-            onClick={() => setMobileMenuOpen(false)}
-            className="px-3 py-2 rounded-xl text-sm font-medium text-[#1A1A1A] hover:bg-[#F9F6F0] hover:text-[#C25934] flex items-center gap-2"
-          >
-            <MapPin className="w-4 h-4 text-[#C25934]" />
-            <span>Topography of Living Ateliers</span>
-          </Link>
-          <Link
-            href="/#murals"
-            onClick={() => setMobileMenuOpen(false)}
-            className="px-3 py-2 rounded-xl text-sm font-medium text-[#1A1A1A] hover:bg-[#F9F6F0] hover:text-[#C25934]"
-          >
-            Commission Custom Mural
-          </Link>
-          <Link
-            href="/dashboard"
-            onClick={() => setMobileMenuOpen(false)}
-            className="px-3 py-2 rounded-xl text-sm font-semibold text-accent hover:bg-[#F9F6F0]"
-          >
-            Artisan Custodian Portal &rarr;
-          </Link>
-
-          <a
-            href="https://wa.me/917260815628?text=Hello%20Maati%20Ghar,%20I%20am%20interested%20in%20Jharkhand%20tribal%20artworks."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 w-full py-2.5 rounded-xl bg-[#C25934] text-white text-center text-xs font-bold flex items-center justify-center gap-2 shadow-xs"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span>WhatsApp Us: +91 72608 15628</span>
-          </a>
         </div>
       )}
-
     </header>
   );
 }
