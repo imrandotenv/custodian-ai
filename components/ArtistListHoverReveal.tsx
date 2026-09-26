@@ -2,98 +2,36 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { ArrowUpRight, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Sparkles, MapPin } from "lucide-react";
+import { DEMO_ARTISANS, DemoArtisan } from "@/lib/demoData";
 
 export interface TribalArtist {
   id: string;
   name: string;
+  hindiName: string;
   olChiki: string;
   craft: string;
   location: string;
+  price: number;
   artworkTitle: string;
+  story: string;
   image: string;
   giTag: string;
 }
 
-const TRIBAL_ARTISTS: TribalArtist[] = [
-  {
-    id: "muni-devi",
-    name: "Muni Devi",
-    olChiki: "ᱥᱚᱦᱨᱟᱭ ᱠᱷᱳᱵᱟᱨ",
-    craft: "Sohrai Khovar Mud Sgraffito",
-    location: "Hazaribagh, Jharkhand",
-    artworkTitle: "Sacred Horned Bull & Dudhi Clay Murals",
-    image:
-      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=85",
-    giTag: "GI Tag #JH-SOHRAI-2020",
-  },
-  {
-    id: "santosh-hemrom",
-    name: "Santosh Hemrom",
-    olChiki: "ᱫᱷᱚᱠᱨᱟ ᱢᱮᱬᱦᱮᱫ",
-    craft: "Purulia Dokra Lost-Wax Metallurgy",
-    location: "Purulia Hills, West Bengal",
-    artworkTitle: "Ancient Lost-Wax Bell-Metal Bison",
-    image:
-      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1200&q=85",
-    giTag: "4,000-Yr Bronze Guild",
-  },
-  {
-    id: "somra-hembrom",
-    name: "Somra Hembrom",
-    olChiki: "ᱡᱟᱦᱮᱨ ᱛᱷᱟᱱ",
-    craft: "Raw Laterite Clay & Ochre Murals",
-    location: "Mayurbhanj Arc, Odisha",
-    artworkTitle: "Jaher Than Sacred Sal Grove Ochre Panel",
-    image:
-      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1200&q=85",
-    giTag: "Sacred Grove Custodian",
-  },
-  {
-    id: "champa-soren",
-    name: "Champa Soren",
-    olChiki: "ᱟᱹᱛᱤᱧ ᱛᱮᱭᱟᱨ",
-    craft: "Sovereign Grasscraft & Botanical Dyes",
-    location: "Dumka, Santhal Parganas",
-    artworkTitle: "Kans Reed Weaving & River Kaolin Clay",
-    image:
-      "https://images.unsplash.com/photo-1606819717115-9159c900370b?auto=format&fit=crop&w=1200&q=85",
-    giTag: "Living Heritage Guild",
-  },
-  {
-    id: "budhram-marandi",
-    name: "Budhram Marandi",
-    olChiki: "ᱵᱟᱱᱟᱢ ᱥᱮᱨᱣᱟ",
-    craft: "Sacred Sal Woodcarving & Banam Lute",
-    location: "Giridih Plateau, Jharkhand",
-    artworkTitle: "Ancestral Four-Stringed Banam Instrument",
-    image:
-      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=85",
-    giTag: "Sovereign Music Master",
-  },
-  {
-    id: "anil-chitrakar",
-    name: "Anil Chitrakar",
-    olChiki: "ᱯᱟᱭᱤᱛᱠᱟᱨ ᱪᱤᱛᱟᱹᱨ",
-    craft: "Paitkar Ancient Scroll Painting",
-    location: "Amadubi, East Singhbhum",
-    artworkTitle: "Santhal Genesis & Pilchu Haram Scroll",
-    image:
-      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1200&q=85",
-    giTag: "Amadubi Chitrakar Guild",
-  },
-  {
-    id: "parvati-devi",
-    name: "Parvati Devi & SHG",
-    olChiki: "ᱞᱮᱫᱽᱨᱟ ᱠᱤᱪᱨᱤᱡ",
-    craft: "Ledra Hand-Stitched Folk Quilting",
-    location: "Ramgarh Cantt, Jharkhand",
-    artworkTitle: "Multi-layered Kantha-Stitch Earthen Quilt",
-    image:
-      "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1200&q=85",
-    giTag: "Ramgarh Women Collective",
-  },
-];
+const TRIBAL_ARTISTS: TribalArtist[] = DEMO_ARTISANS.map((a) => ({
+  id: a.id,
+  name: a.name,
+  hindiName: a.hindiName,
+  olChiki: a.olChiki,
+  craft: a.artForm,
+  location: a.villageDistrict,
+  price: a.priceInINR,
+  artworkTitle: a.dimensions,
+  story: a.originalStory,
+  image: a.image,
+  giTag: a.giTag || "Certified Custodian",
+}));
 
 export default function ArtistListHoverReveal() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -135,7 +73,7 @@ export default function ArtistListHoverReveal() {
   };
 
   const handleArtistClick = (artist: TribalArtist) => {
-    const pledgeSection = document.getElementById("pledge-engine");
+    const pledgeSection = document.getElementById("collection");
     if (pledgeSection) {
       pledgeSection.scrollIntoView({ behavior: "smooth" });
     }
@@ -147,24 +85,25 @@ export default function ArtistListHoverReveal() {
       {/* Curatorial Header */}
       <div className="flex flex-col gap-3 border-b border-[#C25934]/15 pb-8 mb-4">
         <div className="flex items-center gap-2 text-primary font-mono text-[11px] tracking-[0.3em] uppercase font-semibold">
-          <span>ᱥᱟᱱᱛᱟᱲᱤ ᱵᱟᱰᱚᱦᱤ</span>
+          <span>ᱥᱟᱱᱛᱟᱲᱤ ᱵᱟᱰᱚᱦᱤ &middot; 15 SOVEREIGN MASTERS</span>
           <span>&middot;</span>
           <span>SECTION 01.5: LIVING CUSTODIAN DIRECTORY</span>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-textPrimary tracking-tight">
-            The Living Custodian Guild
-          </h2>
-          <span className="text-xs font-mono uppercase tracking-widest text-[#1A1A1A]/50 pb-1">
+          <div>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-textPrimary tracking-tight">
+              The Living Custodian Guild
+            </h2>
+            <p className="text-sm sm:text-base text-textPrimary/75 font-sans max-w-2xl font-light leading-relaxed mt-1">
+              Meet the 15 generational artisans across Jharkhand and West Bengal keeping Sohrai murals, Dokra bronzes, and Santhali handlooms alive.
+            </p>
+          </div>
+          <span className="text-xs font-mono uppercase tracking-widest text-[#1A1A1A]/50 pb-1 shrink-0">
             <span className="hidden md:inline">[ Hover to Reveal Sacred Works ]</span>
             <span className="md:hidden">[ Tap Artist to View &amp; Pledge ]</span>
           </span>
         </div>
-
-        <p className="text-sm sm:text-base text-textPrimary/75 font-sans max-w-2xl font-light leading-relaxed">
-          Hover over each master artisan to glimpse their sacred wall reliefs, lost-wax bronzes, and sovereign atelier archives before initiating a cultural visit.
-        </p>
       </div>
 
       {/* Interactive Minimalist Vertical List Container */}
@@ -175,10 +114,7 @@ export default function ArtistListHoverReveal() {
         className="relative w-full border-t border-[#1A1A1A]/10"
       >
         {/* ULTRA-PREMIUM HOVER IMAGE REVEAL (Desktop Only, Follows Cursor via useMotionValue & useSpring) */}
-        <motion.img
-          ref={imgRef}
-          src={activeArtist?.image}
-          alt={activeArtist?.artworkTitle || "Tribal Art"}
+        <motion.div
           style={{
             x: smoothX,
             y: smoothY,
@@ -192,10 +128,28 @@ export default function ArtistListHoverReveal() {
             opacity: { duration: 0.25, ease: "easeOut" },
             scale: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
           }}
-          className="hidden md:block pointer-events-none absolute top-0 left-0 z-30 w-64 sm:w-72 md:w-80 lg:w-96 aspect-[4/5] object-cover rounded-3xl shadow-2xl border-2 border-[#F9F6F0] bg-[#1C1A19] will-change-transform shadow-[#1C1A19]/30"
-        />
+          className="hidden md:block pointer-events-none absolute top-0 left-0 z-30 w-72 sm:w-80 md:w-96 rounded-3xl shadow-2xl border-2 border-[#F9F6F0] bg-[#1C1A19] overflow-hidden will-change-transform shadow-[#1C1A19]/35"
+        >
+          <img
+            ref={imgRef}
+            src={activeArtist?.image}
+            alt={activeArtist?.name || "Tribal Art"}
+            className="w-full aspect-[4/3] object-cover"
+          />
+          {activeArtist && (
+            <div className="p-4 bg-[#1C1917] text-[#F9F6F0] flex flex-col gap-1.5 border-t border-white/10">
+              <div className="flex items-center justify-between text-[10px] font-mono text-[#E5A882]">
+                <span>{activeArtist.craft}</span>
+                <span>₹{activeArtist.price.toLocaleString("en-IN")}</span>
+              </div>
+              <p className="text-[11px] font-sans text-white/80 line-clamp-2 italic">
+                &ldquo;{activeArtist.story}&rdquo;
+              </p>
+            </div>
+          )}
+        </motion.div>
 
-        {/* Vertical List of Artist Names */}
+        {/* Vertical List of 15 Artist Names */}
         <div className="flex flex-col divide-y divide-[#1A1A1A]/10">
           {TRIBAL_ARTISTS.map((artist, idx) => {
             const isCurrentHovered = hoveredId === artist.id;
@@ -210,18 +164,18 @@ export default function ArtistListHoverReveal() {
                   setActiveArtist(artist);
                   setHoveredId(artist.id);
                 }}
-                className={`group py-6 sm:py-8 md:py-12 flex flex-col justify-between gap-4 transition-all duration-300 cursor-pointer ${
+                className={`group py-5 sm:py-7 md:py-8 flex flex-col justify-between gap-4 transition-all duration-300 cursor-pointer ${
                   isAnyHovered && !isCurrentHovered
                     ? "opacity-35"
                     : "opacity-100"
                 }`}
               >
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 w-full">
-                  {/* Left: Numbering, Ol Chiki Script & Massive Artist Name */}
-                  <div className="flex flex-col gap-1.5 transition-transform duration-300 ease-out md:group-hover:translate-x-3">
+                  {/* Left: Numbering, Ol Chiki Script & Artist Name */}
+                  <div className="flex flex-col gap-1 transition-transform duration-300 ease-out md:group-hover:translate-x-3">
                     <div className="flex items-center gap-2.5 sm:gap-3">
                       <span className="font-mono text-xs text-[#1A1A1A]/40 group-hover:text-[#C25934] transition-colors">
-                        [ 0{idx + 1} ]
+                        [ {idx < 9 ? `0${idx + 1}` : idx + 1} ]
                       </span>
                       <span className="font-mono text-[11px] uppercase tracking-widest text-[#C25934] font-semibold">
                         {artist.olChiki}
@@ -231,8 +185,11 @@ export default function ArtistListHoverReveal() {
                       </span>
                     </div>
 
-                    <h3 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-[#1A1A1A] group-hover:text-[#C25934] transition-colors duration-300">
-                      {artist.name}
+                    <h3 className="font-serif text-xl sm:text-3xl md:text-4xl font-light tracking-tight text-[#1A1A1A] group-hover:text-[#C25934] transition-colors duration-300">
+                      {artist.name}{" "}
+                      <span className="font-sans text-sm sm:text-lg text-[#1A1A1A]/60 font-normal">
+                        ({artist.hindiName})
+                      </span>
                     </h3>
                   </div>
 
@@ -243,7 +200,7 @@ export default function ArtistListHoverReveal() {
                         {artist.craft}
                       </span>
                       <span className="font-mono text-xs text-[#1A1A1A]/60">
-                        {artist.location}
+                        {artist.location} &bull; ₹{artist.price.toLocaleString("en-IN")}
                       </span>
                     </div>
 
@@ -257,16 +214,16 @@ export default function ArtistListHoverReveal() {
                 <div className="block md:hidden w-full rounded-2xl overflow-hidden border border-[#C25934]/20 shadow-sm bg-[#1C1A19] relative aspect-[16/10] mt-2">
                   <img
                     src={artist.image}
-                    alt={artist.artworkTitle}
+                    alt={artist.name}
                     className="w-full h-full object-cover select-none"
                   />
-                  <div className="absolute inset-0 bg-[#1C1A19]/30 pointer-events-none" />
+                  <div className="absolute inset-0 bg-[#1C1A19]/35 pointer-events-none" />
                   <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-sans pointer-events-none">
-                    <span className="font-serif italic drop-shadow-sm truncate max-w-[70%]">
-                      {artist.artworkTitle}
+                    <span className="font-serif italic drop-shadow-sm truncate max-w-[65%]">
+                      &ldquo;{artist.story}&rdquo;
                     </span>
-                    <span className="font-mono text-[10px] text-[#E5A882] bg-black/50 px-2 py-0.5 rounded-md backdrop-blur-xs font-semibold">
-                      Pledge &rarr;
+                    <span className="font-mono text-[10px] text-[#E5A882] bg-black/60 px-2.5 py-1 rounded-md backdrop-blur-xs font-semibold">
+                      ₹{artist.price.toLocaleString("en-IN")} &rarr;
                     </span>
                   </div>
                 </div>

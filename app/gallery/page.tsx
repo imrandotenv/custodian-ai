@@ -19,80 +19,36 @@ import {
 import HorizontalGallery from "@/components/HorizontalGallery";
 import { artworksApi, Artwork, resolveImageUrl } from "@/lib/api";
 
+import { DEMO_ARTISANS } from "@/lib/demoData";
+
 const CATEGORIES = [
   "All Sacred Forms",
-  "Sohrai Mud Mural",
-  "Khovar Bridal Art",
-  "Dokra Lost-Wax Bronze",
-  "Santhal Terracotta",
+  "Sohrai painting",
+  "Dokra craft",
+  "Santhali Handloom",
+  "Santhali Bamboo Craft",
+  "Santhali Embroidery",
 ];
 
-const FALLBACK_ARTWORKS: Partial<Artwork>[] = [
-  {
-    id: "art-sohrai-1",
-    title: "Santhal Fertility Tree of Life",
-    artForm: "Sohrai Mud Mural",
-    originHamlet: "Bhelwara, Hazaribagh",
-    artisanName: "Muni Devi",
-    price: 45000,
-    giTagNumber: "GI-IN-JH-2020-001",
-    images: [
-      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=85",
-    ],
-    nativeDescription: "ᱥᱚᱦᱨᱟᱭ ᱪᱤᱛᱟᱹᱨ - ᱫᱟᱨᱮ ᱡᱤᱣᱤ",
-    englishDescription:
-      "Painted with sacred red ochre (Geru), yellow earth (Nagri), and manganese clay during the winter harvest festival.",
-    views: 1420,
-    pledgeCount: 18,
-    consentRules: [
-      "No Commercial AI Training",
-      "Customary Attribution Required",
-      "95% Direct Remuneration to Clan",
-    ],
-  },
-  {
-    id: "art-khovar-1",
-    title: "Comb-Cut Bridal Cohabitation Labyrinth",
-    artForm: "Khovar Bridal Art",
-    originHamlet: "Jorakath, Hazaribagh",
-    artisanName: "Shanti Murmu",
-    price: 38000,
-    giTagNumber: "GI-IN-JH-2020-002",
-    images: [
-      "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=1200&q=85",
-    ],
-    nativeDescription: "ᱠᱷᱳᱵᱟᱨ ᱵᱟᱯᱞᱟ ᱪᱤᱛᱟᱹᱨ",
-    englishDescription:
-      "Sacred nuptial cave mural scratched through wet kaolin clay using broken combs and bamboo styluses.",
-    views: 980,
-    pledgeCount: 12,
-    consentRules: [
-      "Non-Commercial Display Only",
-      "Physical Custody Remains in Village",
-    ],
-  },
-  {
-    id: "art-dokra-1",
-    title: "Dancing Village Goddess (Chandi Bonga)",
-    artForm: "Dokra Lost-Wax Bronze",
-    originHamlet: "Bikna Artisans Guild, Purulia",
-    artisanName: "Budhan Karmakar",
-    price: 62000,
-    giTagNumber: "GI-IN-WB-2018-044",
-    images: [
-      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1200&q=85",
-    ],
-    nativeDescription: "ᱫᱳᱠᱨᱟ ᱵᱚᱸᱜᱟ ᱢᱩᱨᱛᱤ",
-    englishDescription:
-      "Cast using 4,000-year-old non-ferrous lost-wax beeswax metallurgy and clay core casting.",
-    views: 2150,
-    pledgeCount: 29,
-    consentRules: [
-      "Authentic GI Bronze Seal",
-      "Ethical Fair-Trade Remuneration",
-    ],
-  },
-];
+const FALLBACK_ARTWORKS: Partial<Artwork>[] = DEMO_ARTISANS.map((a) => ({
+  id: a.id,
+  title: `${a.artForm} by ${a.name} (${a.hindiName})`,
+  artForm: a.artForm,
+  originHamlet: a.villageDistrict,
+  artisanName: a.name,
+  price: a.priceInINR,
+  giTagNumber: a.giTag || "GI Tagged Heritage",
+  images: [a.image],
+  nativeDescription: `${a.olChiki} &middot; ${a.name}`,
+  englishDescription: a.originalStory,
+  views: 850,
+  pledgeCount: 19,
+  consentRules: [
+    "No Commercial AI Replication",
+    "Customary Attribution Required",
+    "90% Direct Remuneration to Clan",
+  ],
+}));
 
 export default function GalleryPage() {
   const [artworks, setArtworks] = useState<Artwork[]>([]);

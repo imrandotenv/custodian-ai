@@ -28,69 +28,27 @@ import {
   authApi,
 } from "@/lib/api";
 
-const FALLBACK_LISTINGS: Partial<Artwork>[] = [
-  {
-    id: "list-1",
-    title: "Santhal Fertility Tree of Life",
-    artForm: "Sohrai Mud Mural",
-    originHamlet: "Bhelwara, Hazaribagh",
-    artisanName: "Muni Devi",
-    price: 45000,
-    giTagNumber: "GI-IN-JH-2020-001",
-    images: [
-      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
-    ],
-    status: "AVAILABLE",
-    views: 1420,
-    pledgeCount: 18,
-    consentRules: [
-      "No Commercial AI Training",
-      "Customary Attribution Required",
-      "95% Direct Remuneration to Clan",
-    ],
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: "list-2",
-    title: "Comb-Cut Bridal Cohabitation Labyrinth",
-    artForm: "Khovar Bridal Art",
-    originHamlet: "Jorakath, Hazaribagh",
-    artisanName: "Muni Devi",
-    price: 38000,
-    giTagNumber: "GI-IN-JH-2020-002",
-    images: [
-      "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=800&q=80",
-    ],
-    status: "AVAILABLE",
-    views: 980,
-    pledgeCount: 12,
-    consentRules: [
-      "Non-Commercial Display Only",
-      "Physical Custody Remains in Village",
-    ],
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: "list-3",
-    title: "Terracotta Santhal Horn Blower",
-    artForm: "Santhal Terracotta",
-    originHamlet: "Dumka Valley",
-    artisanName: "Muni Devi",
-    price: 18500,
-    giTagNumber: "GI-IN-JH-2021-009",
-    images: [
-      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80",
-    ],
-    status: "RESERVED",
-    views: 640,
-    pledgeCount: 5,
-    consentRules: [
-      "Direct Artisan Bank Routing",
-      "Sacred Clan Provenance Protected",
-    ],
-    createdAt: new Date().toISOString(),
-  },
-];
+import { DEMO_ARTISANS } from "@/lib/demoData";
+
+const FALLBACK_LISTINGS: Partial<Artwork>[] = DEMO_ARTISANS.map((a, idx) => ({
+  id: `list-${a.id}`,
+  title: `${a.artForm} by ${a.name} (${a.hindiName})`,
+  artForm: a.artForm,
+  originHamlet: a.villageDistrict,
+  artisanName: a.name,
+  price: a.priceInINR,
+  giTagNumber: a.giTag || "GI-IN-JH-2020-001",
+  images: [a.image],
+  status: idx % 4 === 1 ? "RESERVED" : "AVAILABLE",
+  views: Math.floor(Math.random() * 500) + 200,
+  pledgeCount: Math.floor(Math.random() * 25) + 5,
+  consentRules: [
+    "No Commercial AI Training",
+    "Customary Attribution Required",
+    "90% Direct Remuneration to Artisan",
+  ],
+  createdAt: new Date().toISOString(),
+}));
 
 export default function ListingsPage() {
   const { role, setRole } = useRole();
