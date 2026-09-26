@@ -84,19 +84,9 @@
     @apply max-w-prose leading-relaxed;
   }
 
-  /* Hide default cursor on desktop/fine-pointer devices for custom Awwwards cursor */
-  @media (hover: hover) and (pointer: fine) {
-    *, *::before, *::after {
-      cursor: none !important;
-    }
-  }
-
-  /* Force hide custom cursor on touch and coarse pointer devices */
-  @media (pointer: coarse), (hover: none) {
-    .custom-cursor,
-    [data-custom-cursor] {
-      display: none !important;
-    }
+  /* Normal native cursor for all devices */
+  html, body {
+    cursor: auto;
   }
 
   /* Global prevention of horizontal scroll leakage while preserving sticky scrolling */
